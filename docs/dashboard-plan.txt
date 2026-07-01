@@ -1,0 +1,26 @@
+DASHBOARD MODULE PLAN
+
+Frontend Pages:
+1. Dashboard Page
+2. Reports Page
+
+Components:
+1. Summary Card
+2. Expense Chart
+3. Budget Alert
+
+Dashboard Features:
+- Total Expense
+- Total Budget
+- Remaining Budget
+- Highest Spending Category
+
+Reports Features:
+- Monthly Expense Report
+- Category-wise Expense Report
+- Export to Excel
+
+Backend APIs Needed:
+1. /api/reports/total-expense
+2. /api/reports/category-wise
+3. /api/reports/monthly
