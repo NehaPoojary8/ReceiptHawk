@@ -2,16 +2,37 @@ import ReportChart from "../components/ReportChart";
 
 function Reports() {
   return (
-    <div style={{ padding: "30px" }}>
-      <h1>Reports</h1>
+    <div
+      style={{
+        padding: "30px",
+        backgroundColor: "#fafafa",
+        minHeight: "100vh"
+      }}
+    >
+      {/* Heading */}
+      <div style={{ marginBottom: "20px" }}>
+        <h1 style={{ marginBottom: "5px" }}>Financial Reports</h1>
+        <p style={{ color: "gray" }}>
+          Analyze monthly spending trends and insights
+        </p>
+      </div>
 
-      <div style={{ display: "flex", gap: "20px", marginTop: "20px", marginBottom: "30px" }}>
+      {/* Summary Cards */}
+      <div
+        style={{
+          display: "flex",
+          gap: "20px",
+          marginTop: "20px",
+          marginBottom: "30px"
+        }}
+      >
         <div
           style={{
             padding: "20px",
             borderRadius: "12px",
             boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-            width: "180px"
+            width: "180px",
+            backgroundColor: "white"
           }}
         >
           <h3>Total Expense</h3>
@@ -23,7 +44,8 @@ function Reports() {
             padding: "20px",
             borderRadius: "12px",
             boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-            width: "180px"
+            width: "180px",
+            backgroundColor: "white"
           }}
         >
           <h3>Highest Month</h3>
@@ -35,7 +57,8 @@ function Reports() {
             padding: "20px",
             borderRadius: "12px",
             boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-            width: "180px"
+            width: "180px",
+            backgroundColor: "white"
           }}
         >
           <h3>Avg Expense</h3>
@@ -43,16 +66,28 @@ function Reports() {
         </div>
       </div>
 
-      {/* NEW: Chart added here */}
-      <div style={{ marginBottom: "30px" }}>
+      {/* Chart */}
+      <div
+        style={{
+          marginBottom: "30px",
+          padding: "20px",
+          backgroundColor: "white",
+          borderRadius: "12px",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+          width: "fit-content"
+        }}
+      >
         <ReportChart />
       </div>
 
+      {/* Table */}
       <table
         style={{
           borderCollapse: "collapse",
           width: "60%",
-          marginTop: "20px"
+          marginTop: "20px",
+          backgroundColor: "white",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
         }}
       >
         <thead>
