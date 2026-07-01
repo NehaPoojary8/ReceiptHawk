@@ -1,0 +1,517 @@
+/* ==========================
+   GOOGLE FONT
+========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#edf4ff;
+}
+
+/* ==========================
+   PAGE
+========================== */
+
+.page{
+
+    width:100%;
+
+    height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:linear-gradient(
+    135deg,
+    #edf4ff,
+    #dbeafe
+    );
+
+}
+
+/* ==========================
+   CARD
+========================== */
+
+.card{
+
+    width:980px;
+
+    height:580px;
+
+    background:white;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    display:flex;
+
+    position:relative;
+
+    box-shadow:0 25px 60px rgba(0,0,0,.18);
+
+}
+
+/* ==========================
+   LEFT
+========================== */
+
+.left{
+
+    width:34%;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+/* Blue Background */
+
+.blue-bg{
+
+    position:absolute;
+
+    inset:0;
+
+    background:linear-gradient(
+    180deg,
+    #3B82F6,
+    #2563EB,
+    #1D4ED8
+    );
+
+}
+
+/* Decorative Squares */
+
+.blue-bg::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+
+    height:220px;
+
+    background:rgba(255,255,255,.08);
+
+    transform:rotate(45deg);
+
+    top:-80px;
+
+    left:-70px;
+
+}
+
+.blue-bg::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+
+    height:180px;
+
+    background:rgba(255,255,255,.08);
+
+    transform:rotate(45deg);
+
+    bottom:-60px;
+
+    right:-60px;
+
+}
+
+/* White Curved Shape */
+
+.curve{
+
+    position:absolute;
+
+    right:-70px;
+
+    top:-30px;
+
+    width:180px;
+
+    height:640px;
+
+    background:white;
+
+    border-radius:120px;
+
+    transform:rotate(8deg);
+
+}
+
+/* ==========================
+   MENU
+========================== */
+
+.menu{
+
+    position:absolute;
+
+    z-index:5;
+
+    width:100%;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:25px;
+
+}
+
+.active-tab{
+
+    width:180px;
+
+    background:white;
+
+    color:#2563EB;
+
+    text-align:center;
+
+    padding:15px;
+
+    border-radius:40px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+}
+
+.tab{
+
+    width:180px;
+
+    text-align:center;
+
+    padding:15px;
+
+    border-radius:40px;
+
+    border:2px solid white;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.tab:hover{
+
+    background:white;
+
+    color:#2563EB;
+
+}
+/* ==========================
+   RIGHT PANEL
+========================== */
+
+.right{
+
+    width:66%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:50px;
+
+}
+
+.profile{
+
+    width:95px;
+    height:95px;
+
+    border-radius:50%;
+
+    background:linear-gradient(180deg,#60A5FA,#2563EB);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:white;
+
+    font-size:55px;
+
+    box-shadow:0 10px 25px rgba(37,99,235,.30);
+
+    margin-top:40px;      /* ADD THIS */
+    margin-bottom:20px;
+
+}
+
+.right h1{
+
+    color:#2563EB;
+
+    font-size:34px;
+
+    font-weight:700;
+
+    margin-bottom:5px;
+
+}
+
+.subtitle{
+
+    color:#777;
+
+    margin-bottom:35px;
+
+}
+
+/* ==========================
+   FORM
+========================== */
+
+form{
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+.field{
+
+    width:80%;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:12px 0;
+
+    border-bottom:2px solid #d8d8d8;
+
+    margin-bottom:22px;
+
+}
+
+.icon{
+
+    color:#2563EB;
+
+    font-size:18px;
+
+}
+
+.field input{
+
+    width:100%;
+
+    border:none;
+
+    outline:none;
+
+    margin-left:12px;
+
+    font-size:16px;
+
+    background:transparent;
+
+}
+
+.eye{
+
+    color:#999;
+
+    cursor:pointer;
+
+}
+
+.forgot{
+
+    width:80%;
+
+    text-align:right;
+
+    color:#2563EB;
+
+    font-size:14px;
+
+    cursor:pointer;
+
+    margin-bottom:28px;
+
+}
+
+/* ==========================
+   LOGIN BUTTON
+========================== */
+
+.login{
+
+    width:220px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:35px;
+
+    background:#2563EB;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.login:hover{
+
+    background:#1D4ED8;
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================
+   DIVIDER
+========================== */
+
+.line{
+
+    width:80%;
+
+    display:flex;
+
+    align-items:center;
+
+    margin:35px 0 25px;
+
+}
+
+.line::before,
+
+.line::after{
+
+    content:"";
+
+    flex:1;
+
+    height:1px;
+
+    background:#ddd;
+
+}
+
+.line span{
+
+    margin:0 15px;
+
+    color:#888;
+
+    font-size:14px;
+
+}
+
+/* ==========================
+   SOCIAL BUTTONS
+========================== */
+
+.social{
+
+    width:80%;
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+.social button{
+
+    flex:1;
+
+    padding:12px;
+
+    border:1px solid #ddd;
+
+    background:white;
+
+    border-radius:30px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:8px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.social button:hover{
+
+    background:#2563EB;
+
+    color:white;
+
+    border-color:#2563EB;
+
+}
+/* Signup page spacing */
+
+.right form .field{
+    margin-bottom:16px;
+}
+
+.login{
+    margin-top:10px;
+}
+
+.bottom-text{
+    margin-top:25px;
+}
