@@ -2,18 +2,51 @@ function SummaryCard(props) {
   return (
     <div
       style={{
-        background: "linear-gradient(135deg, #6a11cb, #2575fc)",
+        background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
         color: "white",
-        padding: "25px",
+        padding: "28px",
         margin: "15px",
-        width: "220px",
-        borderRadius: "15px",
-        boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
-        transition: "0.3s"
+        width: "250px",
+        borderRadius: "20px",
+        boxShadow: "0 12px 30px rgba(99,102,241,0.35)",
+        transition: "all 0.3s ease",
+        position: "relative",
+        overflow: "hidden"
       }}
     >
-      <h3>{props.title}</h3>
-      <h1>{props.amount}</h1>
+      {/* Small top glow effect */}
+      <div
+        style={{
+          position: "absolute",
+          top: "-20px",
+          right: "-20px",
+          width: "80px",
+          height: "80px",
+          background: "rgba(255,255,255,0.15)",
+          borderRadius: "50%"
+        }}
+      ></div>
+
+      <p
+        style={{
+          fontSize: "15px",
+          opacity: 0.9,
+          marginBottom: "12px",
+          fontWeight: "500"
+        }}
+      >
+        {props.title}
+      </p>
+
+      <h1
+        style={{
+          fontSize: "32px",
+          margin: 0,
+          fontWeight: "700"
+        }}
+      >
+        {props.amount}
+      </h1>
     </div>
   );
 }
