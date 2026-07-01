@@ -1,7 +1,52 @@
+import ReportChart from "../components/ReportChart";
+
 function Reports() {
   return (
     <div style={{ padding: "30px" }}>
       <h1>Reports</h1>
+
+      <div style={{ display: "flex", gap: "20px", marginTop: "20px", marginBottom: "30px" }}>
+        <div
+          style={{
+            padding: "20px",
+            borderRadius: "12px",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+            width: "180px"
+          }}
+        >
+          <h3>Total Expense</h3>
+          <p>₹15000</p>
+        </div>
+
+        <div
+          style={{
+            padding: "20px",
+            borderRadius: "12px",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+            width: "180px"
+          }}
+        >
+          <h3>Highest Month</h3>
+          <p>February</p>
+        </div>
+
+        <div
+          style={{
+            padding: "20px",
+            borderRadius: "12px",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+            width: "180px"
+          }}
+        >
+          <h3>Avg Expense</h3>
+          <p>₹5000</p>
+        </div>
+      </div>
+
+      {/* NEW: Chart added here */}
+      <div style={{ marginBottom: "30px" }}>
+        <ReportChart />
+      </div>
 
       <table
         style={{
