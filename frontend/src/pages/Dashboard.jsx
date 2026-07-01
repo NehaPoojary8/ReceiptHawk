@@ -1,3 +1,4 @@
+import BudgetAlert from "../components/BudgetAlert";
 import ExpenseChart from "../components/ExpenseChart";
 import SummaryCard from "../components/SummaryCard";
 
@@ -12,6 +13,7 @@ function Dashboard() {
         <SummaryCard title="Remaining Budget" amount="₹5000" />
       </div>
       <ExpenseChart />
+      <BudgetAlert />
     </div>
   );
 }
