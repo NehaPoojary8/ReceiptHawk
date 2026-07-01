@@ -1,3 +1,4 @@
+import ExpenseChart from "../components/ExpenseChart";
 import SummaryCard from "../components/SummaryCard";
 
 function Dashboard() {
@@ -10,6 +11,7 @@ function Dashboard() {
         <SummaryCard title="Total Budget" amount="₹20000" />
         <SummaryCard title="Remaining Budget" amount="₹5000" />
       </div>
+      <ExpenseChart />
     </div>
   );
 }
