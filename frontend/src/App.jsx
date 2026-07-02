@@ -3,6 +3,7 @@ import Dashboard from "./pages/Dashboard";
 import Reports from "./pages/Reports";
 import MainLayout from "./components/MainLayout";
 import UploadReceipt from "./pages/UploadReceipt";
+import Settings from "./pages/Settings";
 
 function App() {
   const [page, setPage] = useState("dashboard");
@@ -13,8 +14,10 @@ function App() {
   <Dashboard />
 ) : page === "reports" ? (
   <Reports />
-) : (
+) : page === "upload" ? (
   <UploadReceipt />
+) : (
+  <Settings />
 )}
     </MainLayout>
   );

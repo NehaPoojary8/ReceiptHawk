@@ -58,15 +58,17 @@ function MainLayout({ children, setPage }) {
   📤 Upload Receipt
 </div>
 
-          <div
-            style={{
-              padding: "14px",
-              borderRadius: "12px",
-              backgroundColor: "#1e293b"
-            }}
-          >
-            ⚙ Settings
-          </div>
+         <div
+  onClick={() => setPage("settings")}
+  style={{
+    padding: "14px",
+    borderRadius: "12px",
+    cursor: "pointer",
+    backgroundColor: "#334155"
+  }}
+>
+  ⚙ Settings
+</div>
         </div>
       </div>
 
