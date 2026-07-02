@@ -1,4 +1,21 @@
+import { useState } from "react";
+
 function MainLayout({ children, setPage }) {
+  const [hoveredItem, setHoveredItem] = useState("");
+
+  const menuStyle = (item) => ({
+    padding: "14px",
+    borderRadius: "12px",
+    cursor: "pointer",
+    backgroundColor: hoveredItem === item ? "#475569" : "#334155",
+    transform: hoveredItem === item ? "translateX(6px) scale(1.02)" : "translateX(0)",
+    boxShadow:
+      hoveredItem === item
+        ? "0 6px 16px rgba(0,0,0,0.25)"
+        : "none",
+    transition: "all 0.3s ease"
+  });
+
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
       {/* Sidebar */}
@@ -24,51 +41,39 @@ function MainLayout({ children, setPage }) {
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           <div
             onClick={() => setPage("dashboard")}
-            style={{
-              padding: "14px",
-              borderRadius: "12px",
-              cursor: "pointer",
-              backgroundColor: "#334155"
-            }}
+            onMouseEnter={() => setHoveredItem("dashboard")}
+            onMouseLeave={() => setHoveredItem("")}
+            style={menuStyle("dashboard")}
           >
             🏠 Dashboard
           </div>
 
           <div
             onClick={() => setPage("reports")}
-            style={{
-              padding: "14px",
-              borderRadius: "12px",
-              cursor: "pointer",
-              backgroundColor: "#334155"
-            }}
+            onMouseEnter={() => setHoveredItem("reports")}
+            onMouseLeave={() => setHoveredItem("")}
+            style={menuStyle("reports")}
           >
             📊 Reports
           </div>
 
-            <div
-  onClick={() => setPage("upload")}
-  style={{
-    padding: "14px",
-    borderRadius: "12px",
-    cursor: "pointer",
-    backgroundColor: "#334155"
-  }}
->
-  📤 Upload Receipt
-</div>
+          <div
+            onClick={() => setPage("upload")}
+            onMouseEnter={() => setHoveredItem("upload")}
+            onMouseLeave={() => setHoveredItem("")}
+            style={menuStyle("upload")}
+          >
+            📤 Upload Receipt
+          </div>
 
-         <div
-  onClick={() => setPage("settings")}
-  style={{
-    padding: "14px",
-    borderRadius: "12px",
-    cursor: "pointer",
-    backgroundColor: "#334155"
-  }}
->
-  ⚙ Settings
-</div>
+          <div
+            onClick={() => setPage("settings")}
+            onMouseEnter={() => setHoveredItem("settings")}
+            onMouseLeave={() => setHoveredItem("")}
+            style={menuStyle("settings")}
+          >
+            ⚙ Settings
+          </div>
         </div>
       </div>
 

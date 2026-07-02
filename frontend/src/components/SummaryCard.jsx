@@ -1,6 +1,12 @@
+import { useState } from "react";
+
 function SummaryCard(props) {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       style={{
         background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
         color: "white",
@@ -8,13 +14,17 @@ function SummaryCard(props) {
         margin: "15px",
         width: "250px",
         borderRadius: "20px",
-        boxShadow: "0 12px 30px rgba(99,102,241,0.35)",
+        boxShadow: isHovered
+          ? "0 18px 40px rgba(99,102,241,0.5)"
+          : "0 12px 30px rgba(99,102,241,0.35)",
+        transform: isHovered ? "translateY(-8px) scale(1.02)" : "translateY(0)",
         transition: "all 0.3s ease",
         position: "relative",
-        overflow: "hidden"
+        overflow: "hidden",
+        cursor: "pointer"
       }}
     >
-      {/* Small top glow effect */}
+      {/* Glow circle */}
       <div
         style={{
           position: "absolute",
