@@ -2,11 +2,20 @@ import { useState } from "react";
 
 function UploadReceipt() {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
+
     if (file) {
       setSelectedFile(file);
+
+      if (file.type.startsWith("image/")) {
+        const imageUrl = URL.createObjectURL(file);
+        setPreviewUrl(imageUrl);
+      } else {
+        setPreviewUrl(null);
+      }
     }
   };
 
@@ -28,19 +37,19 @@ function UploadReceipt() {
         style={{
           border: "2px dashed #94a3b8",
           borderRadius: "20px",
-          height: "300px",
+          minHeight: "300px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "white",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.08)"
+          boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+          padding: "30px"
         }}
       >
         <h2>📤 Drag & Drop Receipt Here</h2>
         <p style={{ color: "gray" }}>or</p>
 
-        {/* Hidden File Input */}
         <input
           id="fileUpload"
           type="file"
@@ -49,7 +58,6 @@ function UploadReceipt() {
           style={{ display: "none" }}
         />
 
-        {/* Clickable Label */}
         <label
           htmlFor="fileUpload"
           style={{
@@ -65,7 +73,6 @@ function UploadReceipt() {
           Choose File
         </label>
 
-        {/* Show Selected File */}
         {selectedFile && (
           <p
             style={{
@@ -76,6 +83,41 @@ function UploadReceipt() {
           >
             Selected File: {selectedFile.name}
           </p>
+        )}
+
+        {previewUrl && (
+          <div style={{ marginTop: "20px", textAlign: "center" }}>
+            <h3>Receipt Preview</h3>
+            <img
+              src={previewUrl}
+              alt="Receipt Preview"
+              style={{
+                width: "300px",
+                maxHeight: "400px",
+                objectFit: "contain",
+                borderRadius: "12px",
+                boxShadow: "0 4px 15px rgba(0,0,0,0.2)"
+              }}
+            />
+          </div>
+        )}
+
+        {selectedFile && (
+          <button
+            style={{
+              marginTop: "25px",
+              padding: "14px 28px",
+              border: "none",
+              borderRadius: "12px",
+              backgroundColor: "#16a34a",
+              color: "white",
+              fontSize: "16px",
+              cursor: "pointer",
+              fontWeight: "bold"
+            }}
+          >
+            Upload Receipt
+          </button>
         )}
       </div>
     </div>
