@@ -1,3 +1,5 @@
+import { useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import {
   FaUserCircle,
@@ -11,6 +13,51 @@ import {
 import "../styles/Login.css";
 
 export default function Signup() {
+  const [user, setUser] = useState({
+  fullName: "",
+  email: "",
+  phoneNumber: "",
+  password: "",
+  confirmPassword: "",
+});
+  const handleChange = (e) => {
+  setUser({
+    ...user,
+    [e.target.name]: e.target.value,
+  });
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (user.password !== user.confirmPassword) {
+    alert("Passwords do not match!");
+    return;
+  }
+
+  try {
+    const response = await axios.post(
+      "http://localhost:8083/api/auth/register",
+      {
+        fullName: user.fullName,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        password: user.password,
+      }
+    );
+
+    alert("Registration Successful!");
+
+    console.log(response.data);
+
+  } catch (error) {
+
+    alert("Registration Failed!");
+
+    console.error(error);
+
+  }
+};
   return (
     <div className="page">
 
@@ -54,16 +101,18 @@ export default function Signup() {
             Create your account
           </p>
 
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={handleSubmit}>
 
             <div className="field">
 
               <FaUser className="icon"/>
-
               <input
-                type="text"
-                placeholder="Full Name"
-              />
+    type="text"
+    name="fullName"
+    placeholder="Full Name"
+    value={user.fullName}
+    onChange={handleChange}
+/>
 
             </div>
 
@@ -72,9 +121,12 @@ export default function Signup() {
               <FaEnvelope className="icon"/>
 
               <input
-                type="email"
-                placeholder="Email"
-              />
+    type="email"
+    name="email"
+    placeholder="Email"
+    value={user.email}
+    onChange={handleChange}
+/>
 
             </div>
 
@@ -83,9 +135,12 @@ export default function Signup() {
               <FaPhone className="icon"/>
 
               <input
-                type="text"
-                placeholder="Phone Number"
-              />
+    type="text"
+    name="phoneNumber"
+    placeholder="Phone Number"
+    value={user.phoneNumber}
+    onChange={handleChange}
+/>
 
             </div>
 
@@ -94,9 +149,12 @@ export default function Signup() {
               <FaLock className="icon"/>
 
               <input
-                type="password"
-                placeholder="Password"
-              />
+    type="password"
+    name="password"
+    placeholder="Password"
+    value={user.password}
+    onChange={handleChange}
+/>
 
               <FaEye className="eye"/>
 
@@ -107,9 +165,12 @@ export default function Signup() {
               <FaLock className="icon"/>
 
               <input
-                type="password"
-                placeholder="Confirm Password"
-              />
+    type="password"
+    name="confirmPassword"
+    placeholder="Confirm Password"
+    value={user.confirmPassword}
+    onChange={handleChange}
+/>
 
               <FaEye className="eye"/>
 
