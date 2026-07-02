@@ -3,12 +3,14 @@ import { useState } from "react";
 function UploadReceipt() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [showResult, setShowResult] = useState(false);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
     if (file) {
       setSelectedFile(file);
+      setShowResult(false);
 
       if (file.type.startsWith("image/")) {
         const imageUrl = URL.createObjectURL(file);
@@ -17,6 +19,10 @@ function UploadReceipt() {
         setPreviewUrl(null);
       }
     }
+  };
+
+  const handleUpload = () => {
+    setShowResult(true);
   };
 
   return (
@@ -104,6 +110,7 @@ function UploadReceipt() {
 
         {selectedFile && (
           <button
+            onClick={handleUpload}
             style={{
               marginTop: "25px",
               padding: "14px 28px",
@@ -120,6 +127,24 @@ function UploadReceipt() {
           </button>
         )}
       </div>
+
+      {showResult && (
+        <div
+          style={{
+            marginTop: "30px",
+            padding: "25px",
+            backgroundColor: "white",
+            borderRadius: "20px",
+            boxShadow: "0 8px 24px rgba(0,0,0,0.08)"
+          }}
+        >
+          <h2 style={{ color: "green" }}>✅ Receipt Processed Successfully</h2>
+          <p><strong>Merchant:</strong> DMart</p>
+          <p><strong>Date:</strong> 02-07-2026</p>
+          <p><strong>Amount:</strong> ₹850</p>
+          <p><strong>Category:</strong> Grocery</p>
+        </div>
+      )}
     </div>
   );
 }
