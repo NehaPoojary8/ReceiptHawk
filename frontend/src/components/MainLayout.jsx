@@ -1,19 +1,24 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function MainLayout({ children, setPage }) {
+function MainLayout({ children }) {
   const [hoveredItem, setHoveredItem] = useState("");
+  const navigate = useNavigate();
 
   const menuStyle = (item) => ({
     padding: "14px",
     borderRadius: "12px",
     cursor: "pointer",
     backgroundColor: hoveredItem === item ? "#475569" : "#334155",
-    transform: hoveredItem === item ? "translateX(6px) scale(1.02)" : "translateX(0)",
+    transform:
+      hoveredItem === item
+        ? "translateX(6px) scale(1.02)"
+        : "translateX(0)",
     boxShadow:
       hoveredItem === item
         ? "0 6px 16px rgba(0,0,0,0.25)"
         : "none",
-    transition: "all 0.3s ease"
+    transition: "all 0.3s ease",
   });
 
   return (
@@ -25,22 +30,28 @@ function MainLayout({ children, setPage }) {
           background: "linear-gradient(180deg, #1e293b, #0f172a)",
           color: "white",
           padding: "30px 20px",
-          boxShadow: "2px 0 15px rgba(0,0,0,0.2)"
+          boxShadow: "2px 0 15px rgba(0,0,0,0.2)",
         }}
       >
         <h1
           style={{
             fontSize: "28px",
             marginBottom: "50px",
-            color: "#38bdf8"
+            color: "#38bdf8",
           }}
         >
           ReceiptHawk
         </h1>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "20px",
+          }}
+        >
           <div
-            onClick={() => setPage("dashboard")}
+            onClick={() => navigate("/dashboard")}
             onMouseEnter={() => setHoveredItem("dashboard")}
             onMouseLeave={() => setHoveredItem("")}
             style={menuStyle("dashboard")}
@@ -49,7 +60,7 @@ function MainLayout({ children, setPage }) {
           </div>
 
           <div
-            onClick={() => setPage("reports")}
+            onClick={() => navigate("/reports")}
             onMouseEnter={() => setHoveredItem("reports")}
             onMouseLeave={() => setHoveredItem("")}
             style={menuStyle("reports")}
@@ -58,7 +69,7 @@ function MainLayout({ children, setPage }) {
           </div>
 
           <div
-            onClick={() => setPage("upload")}
+            onClick={() => navigate("/upload")}
             onMouseEnter={() => setHoveredItem("upload")}
             onMouseLeave={() => setHoveredItem("")}
             style={menuStyle("upload")}
@@ -67,7 +78,7 @@ function MainLayout({ children, setPage }) {
           </div>
 
           <div
-            onClick={() => setPage("settings")}
+            onClick={() => navigate("/settings")}
             onMouseEnter={() => setHoveredItem("settings")}
             onMouseLeave={() => setHoveredItem("")}
             style={menuStyle("settings")}
@@ -77,11 +88,11 @@ function MainLayout({ children, setPage }) {
         </div>
       </div>
 
-      {/* Main content */}
+      {/* Main Content */}
       <div
         style={{
           flex: 1,
-          backgroundColor: "#f8fafc"
+          backgroundColor: "#f8fafc",
         }}
       >
         {children}
