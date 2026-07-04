@@ -33,28 +33,53 @@ function UploadReceipt() {
         minHeight: "100vh"
       }}
     >
-      <h1 style={{ marginBottom: "8px" }}>Upload Receipt</h1>
+      {/* Heading */}
+      <div style={{ marginBottom: "40px" }}>
+        <h1
+          style={{
+            marginBottom: "14px",
+            fontSize: "58px",
+            fontWeight: "700",
+            lineHeight: "1.1"
+          }}
+        >
+          Upload Receipt
+        </h1>
 
-      <p style={{ color: "gray", marginBottom: "30px" }}>
-        Upload receipt images or PDFs for expense tracking
-      </p>
+        <p
+          style={{
+            color: "#64748b",
+            fontSize: "18px",
+            fontWeight: "500",
+            lineHeight: "1.5"
+          }}
+        >
+          Upload receipts and extract expense data using AI-powered OCR
+        </p>
+      </div>
 
+      {/* Upload Box */}
       <div
         style={{
-          border: "2px dashed #94a3b8",
-          borderRadius: "20px",
-          minHeight: "300px",
+          border: "3px dashed #94a3b8",
+          borderRadius: "24px",
+          minHeight: "500px",
+          width: "85%",
+          margin: "auto",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "white",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
-          padding: "30px"
+          boxShadow: "0 12px 32px rgba(0,0,0,0.08)",
+          padding: "40px"
         }}
       >
-        <h2>📤 Drag & Drop Receipt Here</h2>
-        <p style={{ color: "gray" }}>or</p>
+        <h2 style={{ fontSize: "30px", marginBottom: "12px" }}>
+          📤 Drag & Drop Receipt Here
+        </h2>
+
+        <p style={{ color: "#64748b", fontSize: "18px" }}>or</p>
 
         <input
           id="fileUpload"
@@ -67,13 +92,14 @@ function UploadReceipt() {
         <label
           htmlFor="fileUpload"
           style={{
-            padding: "12px 24px",
-            borderRadius: "10px",
+            padding: "16px 32px",
+            borderRadius: "14px",
             backgroundColor: "#6366f1",
             color: "white",
             cursor: "pointer",
-            fontSize: "16px",
-            marginTop: "10px"
+            fontSize: "18px",
+            marginTop: "15px",
+            fontWeight: "600"
           }}
         >
           Choose File
@@ -82,9 +108,10 @@ function UploadReceipt() {
         {selectedFile && (
           <p
             style={{
-              marginTop: "20px",
+              marginTop: "25px",
               color: "green",
-              fontWeight: "bold"
+              fontWeight: "bold",
+              fontSize: "18px"
             }}
           >
             Selected File: {selectedFile.name}
@@ -92,17 +119,17 @@ function UploadReceipt() {
         )}
 
         {previewUrl && (
-          <div style={{ marginTop: "20px", textAlign: "center" }}>
-            <h3>Receipt Preview</h3>
+          <div style={{ marginTop: "25px", textAlign: "center" }}>
+            <h3 style={{ marginBottom: "15px" }}>Receipt Preview</h3>
             <img
               src={previewUrl}
               alt="Receipt Preview"
               style={{
-                width: "300px",
-                maxHeight: "400px",
+                width: "420px",
+                maxHeight: "500px",
                 objectFit: "contain",
-                borderRadius: "12px",
-                boxShadow: "0 4px 15px rgba(0,0,0,0.2)"
+                borderRadius: "16px",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.2)"
               }}
             />
           </div>
@@ -112,13 +139,13 @@ function UploadReceipt() {
           <button
             onClick={handleUpload}
             style={{
-              marginTop: "25px",
-              padding: "14px 28px",
+              marginTop: "30px",
+              padding: "16px 34px",
               border: "none",
-              borderRadius: "12px",
+              borderRadius: "14px",
               backgroundColor: "#16a34a",
               color: "white",
-              fontSize: "16px",
+              fontSize: "18px",
               cursor: "pointer",
               fontWeight: "bold"
             }}
@@ -128,21 +155,37 @@ function UploadReceipt() {
         )}
       </div>
 
+      {/* OCR Result */}
       {showResult && (
         <div
           style={{
-            marginTop: "30px",
-            padding: "25px",
+            marginTop: "40px",
+            padding: "35px",
             backgroundColor: "white",
-            borderRadius: "20px",
-            boxShadow: "0 8px 24px rgba(0,0,0,0.08)"
+            borderRadius: "24px",
+            boxShadow: "0 12px 32px rgba(0,0,0,0.08)",
+            width: "85%",
+            marginLeft: "auto",
+            marginRight: "auto"
           }}
         >
-          <h2 style={{ color: "green" }}>✅ Receipt Processed Successfully</h2>
-          <p><strong>Merchant:</strong> DMart</p>
-          <p><strong>Date:</strong> 02-07-2026</p>
-          <p><strong>Amount:</strong> ₹850</p>
-          <p><strong>Category:</strong> Grocery</p>
+          <h2 style={{ color: "green", marginBottom: "25px" }}>
+            ✅ Receipt Processed Successfully
+          </h2>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "20px",
+              fontSize: "18px"
+            }}
+          >
+            <p><strong>Merchant:</strong> DMart</p>
+            <p><strong>Date:</strong> 02-07-2026</p>
+            <p><strong>Amount:</strong> ₹850</p>
+            <p><strong>Category:</strong> Grocery</p>
+          </div>
         </div>
       )}
     </div>

@@ -1,6 +1,6 @@
-import BudgetAlert from "../components/BudgetAlert";
-import ExpenseChart from "../components/ExpenseChart";
 import SummaryCard from "../components/SummaryCard";
+import ExpenseChart from "../components/ExpenseChart";
+import BudgetAlert from "../components/BudgetAlert";
 
 function Dashboard() {
   return (
@@ -12,9 +12,25 @@ function Dashboard() {
       }}
     >
       {/* Heading */}
-      <div style={{ marginBottom: "30px" }}>
-        <h1 style={{ marginBottom: "5px" }}>Dashboard Overview</h1>
-        <p style={{ color: "gray", fontSize: "16px" }}>
+      <div style={{ textAlign: "center", marginBottom: "40px" }}>
+        <h1
+          style={{
+            fontSize: "58px",
+            fontWeight: "700",
+            margin: 0
+          }}
+        >
+          Dashboard Overview
+        </h1>
+
+        <p
+          style={{
+            marginTop: "15px",
+            color: "#64748b",
+            fontSize: "18px",
+            fontWeight: "500"
+          }}
+        >
           Monitor expenses, budget, and spending insights
         </p>
       </div>
@@ -23,9 +39,10 @@ function Dashboard() {
       <div
         style={{
           display: "flex",
-          gap: "20px",
-          flexWrap: "wrap",
-          marginBottom: "35px"
+          justifyContent: "center",
+          gap: "25px",
+          marginBottom: "40px",
+          flexWrap: "wrap"
         }}
       >
         <SummaryCard title="Total Expense" amount="₹15000" />
@@ -33,33 +50,67 @@ function Dashboard() {
         <SummaryCard title="Remaining Budget" amount="₹5000" />
       </div>
 
-      {/* Chart Section */}
+      {/* Expense Chart */}
       <div
         style={{
+          width: "90%",
+          margin: "auto",
           backgroundColor: "white",
-          padding: "25px",
           borderRadius: "20px",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
-          marginBottom: "30px",
-          width: "fit-content"
+          padding: "30px",
+          boxShadow: "0 12px 32px rgba(0,0,0,0.08)",
+          marginBottom: "35px"
         }}
       >
-        <h2 style={{ marginBottom: "20px" }}>Expense Distribution</h2>
-        <ExpenseChart />
+        <h2
+          style={{
+            textAlign: "center",
+            marginBottom: "25px"
+          }}
+        >
+          Expense Distribution
+        </h2>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            transform: "scale(1.25)"
+          }}
+        >
+          <ExpenseChart />
+        </div>
       </div>
 
-      {/* Budget Alert Section */}
+      {/* Budget Alert */}
       <div
         style={{
+          width: "90%",
+          margin: "auto",
           backgroundColor: "white",
-          padding: "20px",
           borderRadius: "20px",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
-          width: "fit-content"
+          padding: "30px",
+          boxShadow: "0 12px 32px rgba(0,0,0,0.08)"
         }}
       >
-        <h2 style={{ marginBottom: "15px" }}>Budget Status</h2>
-        <BudgetAlert />
+        <h2
+          style={{
+            textAlign: "center",
+            marginBottom: "25px"
+          }}
+        >
+          Budget Status
+        </h2>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            transform: "scale(1.15)"
+          }}
+        >
+          <BudgetAlert />
+        </div>
       </div>
     </div>
   );

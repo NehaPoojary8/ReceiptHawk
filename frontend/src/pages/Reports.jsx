@@ -4,15 +4,32 @@ function Reports() {
   return (
     <div
       style={{
-        padding: "30px",
+        padding: "40px",
         backgroundColor: "#fafafa",
         minHeight: "100vh"
       }}
     >
       {/* Heading */}
-      <div style={{ marginBottom: "20px" }}>
-        <h1 style={{ marginBottom: "5px" }}>Financial Reports</h1>
-        <p style={{ color: "gray" }}>
+      <div style={{ marginBottom: "40px" }}>
+        <h1
+          style={{
+            marginBottom: "14px",
+            fontSize: "58px",
+            fontWeight: "700",
+            lineHeight: "1.1"
+          }}
+        >
+          Financial Reports
+        </h1>
+
+        <p
+          style={{
+            color: "#64748b",
+            fontSize: "18px",
+            fontWeight: "500",
+            lineHeight: "1.5"
+          }}
+        >
           Analyze monthly spending trends and insights
         </p>
       </div>
@@ -22,16 +39,16 @@ function Reports() {
         style={{
           display: "flex",
           gap: "20px",
-          marginTop: "20px",
-          marginBottom: "30px"
+          marginBottom: "35px",
+          flexWrap: "wrap"
         }}
       >
         <div
           style={{
-            padding: "20px",
-            borderRadius: "12px",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-            width: "180px",
+            padding: "22px",
+            borderRadius: "16px",
+            boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+            width: "200px",
             backgroundColor: "white"
           }}
         >
@@ -41,10 +58,10 @@ function Reports() {
 
         <div
           style={{
-            padding: "20px",
-            borderRadius: "12px",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-            width: "180px",
+            padding: "22px",
+            borderRadius: "16px",
+            boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+            width: "200px",
             backgroundColor: "white"
           }}
         >
@@ -54,10 +71,10 @@ function Reports() {
 
         <div
           style={{
-            padding: "20px",
-            borderRadius: "12px",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-            width: "180px",
+            padding: "22px",
+            borderRadius: "16px",
+            boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+            width: "200px",
             backgroundColor: "white"
           }}
         >
@@ -70,10 +87,10 @@ function Reports() {
       <div
         style={{
           marginBottom: "30px",
-          padding: "20px",
+          padding: "25px",
           backgroundColor: "white",
-          borderRadius: "12px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+          borderRadius: "20px",
+          boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
           width: "fit-content"
         }}
       >
@@ -85,17 +102,18 @@ function Reports() {
         style={{
           borderCollapse: "collapse",
           width: "60%",
-          marginTop: "20px",
           backgroundColor: "white",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+          boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+          borderRadius: "16px",
+          overflow: "hidden"
         }}
       >
         <thead>
-          <tr style={{ backgroundColor: "#f2f2f2" }}>
-            <th style={{ border: "1px solid black", padding: "12px" }}>
+          <tr style={{ backgroundColor: "#f1f5f9" }}>
+            <th style={{ border: "1px solid #cbd5e1", padding: "14px" }}>
               Month
             </th>
-            <th style={{ border: "1px solid black", padding: "12px" }}>
+            <th style={{ border: "1px solid #cbd5e1", padding: "14px" }}>
               Expense
             </th>
           </tr>
@@ -103,28 +121,28 @@ function Reports() {
 
         <tbody>
           <tr>
-            <td style={{ border: "1px solid black", padding: "12px" }}>
+            <td style={{ border: "1px solid #cbd5e1", padding: "14px" }}>
               January
             </td>
-            <td style={{ border: "1px solid black", padding: "12px" }}>
+            <td style={{ border: "1px solid #cbd5e1", padding: "14px" }}>
               ₹5000
             </td>
           </tr>
 
           <tr>
-            <td style={{ border: "1px solid black", padding: "12px" }}>
+            <td style={{ border: "1px solid #cbd5e1", padding: "14px" }}>
               February
             </td>
-            <td style={{ border: "1px solid black", padding: "12px" }}>
+            <td style={{ border: "1px solid #cbd5e1", padding: "14px" }}>
               ₹7000
             </td>
           </tr>
 
           <tr>
-            <td style={{ border: "1px solid black", padding: "12px" }}>
+            <td style={{ border: "1px solid #cbd5e1", padding: "14px" }}>
               March
             </td>
-            <td style={{ border: "1px solid black", padding: "12px" }}>
+            <td style={{ border: "1px solid #cbd5e1", padding: "14px" }}>
               ₹3000
             </td>
           </tr>

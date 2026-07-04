@@ -1,30 +1,38 @@
 function BudgetAlert() {
-  const budget = 20000;
-  const expense = 18000;
-
-  let message = "✅ Budget Safe";
-  let bgColor = "#d4edda";
-
-  if (expense > budget) {
-    message = "🚨 Budget Exceeded!";
-    bgColor = "#f8d7da";
-  } else if (expense >= budget * 0.8) {
-    message = "⚠ Warning: Budget Almost Full!";
-    bgColor = "#fff3cd";
-  }
-
   return (
     <div
       style={{
-        backgroundColor: bgColor,
-        padding: "15px",
-        marginTop: "20px",
-        borderRadius: "10px",
-        width: "400px",
-        fontWeight: "bold"
+        width: "90%",
+        backgroundColor: "#fffbeb",
+        border: "1px solid #facc15",
+        padding: "30px",
+        borderRadius: "18px",
+        display: "flex",
+        alignItems: "center",
+        gap: "25px"
       }}
     >
-      {message}
+      <div
+        style={{
+          width: "70px",
+          height: "70px",
+          borderRadius: "50%",
+          backgroundColor: "#fef08a",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "30px"
+        }}
+      >
+        ⚠
+      </div>
+
+      <div>
+        <h2 style={{ margin: 0 }}>Warning: Budget Almost Full!</h2>
+        <p style={{ color: "#64748b", marginTop: "10px" }}>
+          You have used 75% of your total budget
+        </p>
+      </div>
     </div>
   );
 }
