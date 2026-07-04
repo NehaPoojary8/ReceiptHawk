@@ -46,7 +46,18 @@ const handleDelete = async (id) => {
   return (
     <div className="container mt-5">
 
-      <h2 className="text-primary mb-4">Expense List</h2>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+
+  <h2 className="text-primary">Expense List</h2>
+
+  <button
+   className="btn btn-primary rounded-pill px-4"
+    onClick={() => navigate("/add")}
+  >
+    ➕ Add Expense
+  </button>
+
+</div>
 
       {/* Summary Cards */}
       <div className="row mb-4">
@@ -119,12 +130,23 @@ const handleDelete = async (id) => {
 
   {/* Expense Cards */}
 
-  {expenses.map((expense) => (
+ {expenses
+  .filter((expense) =>
+    expense.title.toLowerCase().includes(search.toLowerCase()) ||
+    expense.category.toLowerCase().includes(search.toLowerCase()) ||
+    expense.description.toLowerCase().includes(search.toLowerCase())
+  )
+  .filter((expense) =>
+    category === "All Categories"
+      ? true
+      : expense.category === category
+  )
+  .map((expense) => (
     <ExpenseCard
-  key={expense.expenseId}
-  expense={expense}
-  onDelete={handleDelete}
-/>
+      key={expense.expenseId}
+      expense={expense}
+      onDelete={handleDelete}
+    />
   ))}
 </div>
 
