@@ -9,6 +9,12 @@ import ExpenseList from "./pages/ExpenseList";
 import AddExpense from "./pages/AddExpense";
 import EditExpense from "./pages/EditExpense";
 
+import Dashboard from "./pages/Dashboard";
+import Reports from "./pages/Reports";
+import UploadReceipt from "./pages/UploadReceipt";
+import Settings from "./pages/Settings";
+import MainLayout from "./components/MainLayout";
+
 function App() {
   return (
     <BrowserRouter>
@@ -18,7 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
-        {/* Protected Profile */}
+        {/* Protected pages */}
         <Route
           path="/profile"
           element={
@@ -32,6 +38,51 @@ function App() {
         <Route path="/expenses" element={<ExpenseList />} />
         <Route path="/expenses/add" element={<AddExpense />} />
         <Route path="/expenses/edit/:id" element={<EditExpense />} />
+
+        {/* Dashboard Module */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Dashboard />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/reports"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Reports />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/upload"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <UploadReceipt />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Settings />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
