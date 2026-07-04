@@ -1,5 +1,4 @@
 package com.receipthawk.backend.controller;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,12 +6,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.receipthawk.backend.dto.LoginRequest;
 import com.receipthawk.backend.entity.User;
 import com.receipthawk.backend.service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {
+    "http://localhost:5173",
+    "http://localhost:5174"
+})
 public class AuthController {
 
     @Autowired
@@ -24,5 +27,14 @@ public class AuthController {
         return userService.registerUser(user);
 
     }
+    @PostMapping("/login")
+public User loginUser(@RequestBody LoginRequest loginRequest) {
+
+    return userService.loginUser(
+            loginRequest.getEmail(),
+            loginRequest.getPassword()
+    );
+
+}
 
 }

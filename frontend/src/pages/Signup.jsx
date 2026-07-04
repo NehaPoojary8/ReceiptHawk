@@ -1,205 +1,168 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
-  FaUserCircle,
   FaUser,
   FaEnvelope,
   FaPhone,
   FaLock,
   FaEye,
+  FaEyeSlash,
+  FaArrowRight,
 } from "react-icons/fa";
-
-import "../styles/Login.css";
+import "../styles/Signup.css";
 
 export default function Signup() {
-  const [user, setUser] = useState({
-  fullName: "",
-  email: "",
-  phoneNumber: "",
-  password: "",
-  confirmPassword: "",
-});
-  const handleChange = (e) => {
-  setUser({
-    ...user,
-    [e.target.name]: e.target.value,
+  const navigate = useNavigate();
+  
+  const [signupData, setSignupData] = useState({
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+    confirmPassword: "",
   });
-};
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  if (user.password !== user.confirmPassword) {
-    alert("Passwords do not match!");
-    return;
-  }
+  const handleChange = (e) => {
+    setSignupData({ ...signupData, [e.target.name]: e.target.value });
+  };
 
-  try {
-    const response = await axios.post(
-      "http://localhost:8083/api/auth/register",
-      {
-        fullName: user.fullName,
-        email: user.email,
-        phoneNumber: user.phoneNumber,
-        password: user.password,
-      }
-    );
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (signupData.password !== signupData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
 
-    alert("Registration Successful!");
+    try {
+      // Adjust endpoint to match your backend signup logic
+      await axios.post("http://localhost:8083/api/auth/register", {
+        fullName: signupData.fullName,
+        email: signupData.email,
+        phoneNumber: signupData.phoneNumber,
+        password: signupData.password,
+      });
 
-    console.log(response.data);
+      alert("Signup Successful! Please login.");
+      navigate("/login");
+    } catch (error) {
+      alert("Registration failed. Please try again.");
+    }
+  };
 
-  } catch (error) {
-
-    alert("Registration Failed!");
-
-    console.error(error);
-
-  }
-};
   return (
-    <div className="page">
-
-      <div className="card">
-
-        {/* LEFT PANEL */}
-
-        <div className="left">
-
-          <div className="blue-bg"></div>
-
-          <div className="curve"></div>
-
-          <div className="menu">
-
-            <Link to="/" className="tab">
-              LOGIN
-            </Link>
-
-            <div className="active-tab">
-              SIGN UP
-            </div>
-
+    <div className="new-signup-wrapper">
+      <div className="new-signup-card">
+        
+        {/* LEFT DECORATIVE PANEL */}
+        <div className="brand-side">
+          <div className="brand-nav">
+            <Link to="/login" className="nav-idle">LOGIN</Link>
+            <span className="nav-active">SIGN UP</span>
           </div>
-
+          <div className="brand-text">
+            <h2>Track Smart.</h2>
+            <h2>Save More.</h2>
+            <h2>Live Better.</h2>
+            <p>Manage every receipt with confidence.</p>
+          </div>
         </div>
 
-        {/* RIGHT PANEL */}
-
-        <div className="right">
-
-          <div className="profile">
-
-            <FaUserCircle />
-
+        {/* RIGHT FORM PANEL */}
+        <div className="form-side">
+          <div className="form-header">
+            <div className="brand-badge">🦅</div>
+            <h1>Receipt<span>Hawk</span></h1>
+            <p className="subtext">Create your account</p>
           </div>
 
-          <h1>ReceiptHawk</h1>
-
-          <p className="subtitle">
-            Create your account
-          </p>
-
-          <form onSubmit={handleSubmit}>
-
-            <div className="field">
-
-              <FaUser className="icon"/>
+          <form onSubmit={handleSubmit} className="auth-form">
+            
+            {/* FULL NAME */}
+            <div className="field-group">
+              <FaUser className="field-icon" />
               <input
-    type="text"
-    name="fullName"
-    placeholder="Full Name"
-    value={user.fullName}
-    onChange={handleChange}
-/>
-
+                type="text"
+                name="fullName"
+                placeholder="Full Name"
+                value={signupData.fullName}
+                onChange={handleChange}
+                required
+              />
             </div>
 
-            <div className="field">
-
-              <FaEnvelope className="icon"/>
-
+            {/* EMAIL */}
+            <div className="field-group">
+              <FaEnvelope className="field-icon" />
               <input
-    type="email"
-    name="email"
-    placeholder="Email"
-    value={user.email}
-    onChange={handleChange}
-/>
-
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                value={signupData.email}
+                onChange={handleChange}
+                required
+              />
             </div>
 
-            <div className="field">
-
-              <FaPhone className="icon"/>
-
+            {/* PHONE NUMBER */}
+            <div className="field-group">
+              <FaPhone className="field-icon" />
               <input
-    type="text"
-    name="phoneNumber"
-    placeholder="Phone Number"
-    value={user.phoneNumber}
-    onChange={handleChange}
-/>
-
+                type="tel"
+                name="phoneNumber"
+                placeholder="Phone Number"
+                value={signupData.phoneNumber}
+                onChange={handleChange}
+              />
             </div>
 
-            <div className="field">
-
-              <FaLock className="icon"/>
-
+            {/* PASSWORD */}
+            <div className="field-group">
+              <FaLock className="field-icon" />
               <input
-    type="password"
-    name="password"
-    placeholder="Password"
-    value={user.password}
-    onChange={handleChange}
-/>
-
-              <FaEye className="eye"/>
-
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Password"
+                value={signupData.password}
+                onChange={handleChange}
+                required
+              />
+              {showPassword ? (
+                <FaEye className="toggle-password" onClick={() => setShowPassword(false)} />
+              ) : (
+                <FaEyeSlash className="toggle-password" onClick={() => setShowPassword(true)} />
+              )}
             </div>
 
-            <div className="field">
-
-              <FaLock className="icon"/>
-
+            {/* CONFIRM PASSWORD */}
+            <div className="field-group">
+              <FaLock className="field-icon" />
               <input
-    type="password"
-    name="confirmPassword"
-    placeholder="Confirm Password"
-    value={user.confirmPassword}
-    onChange={handleChange}
-/>
-
-              <FaEye className="eye"/>
-
+                type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                value={signupData.confirmPassword}
+                onChange={handleChange}
+                required
+              />
+              {showConfirmPassword ? (
+                <FaEye className="toggle-password" onClick={() => setShowConfirmPassword(false)} />
+              ) : (
+                <FaEyeSlash className="toggle-password" onClick={() => setShowConfirmPassword(true)} />
+              )}
             </div>
 
-            <button className="login">
-
-              CREATE ACCOUNT
-
+            <button type="submit" className="action-btn">
+              CREATE ACCOUNT <FaArrowRight />
             </button>
-
           </form>
-
-          <p className="bottom-text">
-
-            Already have an account?
-
-            <Link to="/">
-
-              Login
-
-            </Link>
-
-          </p>
-
         </div>
 
       </div>
-
     </div>
   );
 }
