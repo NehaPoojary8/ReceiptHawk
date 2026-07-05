@@ -23,6 +23,12 @@ public class ExpenseService {
     public List<Expense> getAllExpenses() {
         return expenseRepository.findAll();
     }
+    public List<Expense> searchExpenses(String title) {
+    return expenseRepository.findByTitleContainingIgnoreCase(title);
+}
+public List<Expense> filterByCategory(String category) {
+    return expenseRepository.findByCategory(category);
+}
     public Expense getExpenseById(Long id) {
     return expenseRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Expense not found"));
@@ -32,6 +38,7 @@ public class ExpenseService {
     public void deleteExpense(Long id) {
         expenseRepository.deleteById(id);
     }
+    
 
     // Update Expense
     public Expense updateExpense(Long id, Expense updatedExpense) {

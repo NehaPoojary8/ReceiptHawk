@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.receipthawk.backend.entity.Expense;
@@ -35,10 +36,23 @@ public class ExpenseController {
     public List<Expense> getAllExpenses() {
         return expenseService.getAllExpenses();
     }
-    @GetMapping("/{id}")
-public Expense getExpenseById(@PathVariable Long id) {
-    return expenseService.getExpenseById(id);
+
+    // Search Expenses
+    @GetMapping("/search")
+    public List<Expense> searchExpenses(@RequestParam String title) {
+        return expenseService.searchExpenses(title);
+    }
+    // Filter By Category
+@GetMapping("/category")
+public List<Expense> filterByCategory(@RequestParam String category) {
+    return expenseService.filterByCategory(category);
 }
+
+    // Get Expense By Id
+    @GetMapping("/id/{id}")
+    public Expense getExpenseById(@PathVariable Long id) {
+        return expenseService.getExpenseById(id);
+    }
 
     // Delete Expense
     @DeleteMapping("/{id}")
