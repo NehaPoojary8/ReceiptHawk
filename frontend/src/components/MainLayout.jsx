@@ -58,6 +58,14 @@ function MainLayout({ children }) {
           >
             🏠 Dashboard
           </div>
+          <div
+  onClick={() => navigate("/expenses")}
+  onMouseEnter={() => setHoveredItem("expenses")}
+  onMouseLeave={() => setHoveredItem("")}
+  style={menuStyle("expenses")}
+>
+  💰 Expenses
+</div>
 
           <div
             onClick={() => navigate("/reports")}
@@ -67,7 +75,14 @@ function MainLayout({ children }) {
           >
             📊 Reports
           </div>
-
+<div
+  onClick={() => navigate("/profile")}
+  onMouseEnter={() => setHoveredItem("profile")}
+  onMouseLeave={() => setHoveredItem("")}
+  style={menuStyle("profile")}
+>
+  👤 Profile
+</div>
           <div
             onClick={() => navigate("/upload")}
             onMouseEnter={() => setHoveredItem("upload")}
@@ -87,7 +102,17 @@ function MainLayout({ children }) {
           </div>
         </div>
       </div>
-
+<div
+  onClick={() => {
+    localStorage.removeItem("user");
+    navigate("/login");
+  }}
+  onMouseEnter={() => setHoveredItem("logout")}
+  onMouseLeave={() => setHoveredItem("")}
+  style={menuStyle("logout")}
+>
+  🚪 Logout
+</div>
       {/* Main Content */}
       <div
         style={{
