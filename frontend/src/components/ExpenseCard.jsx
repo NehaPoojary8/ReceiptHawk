@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
 function ExpenseCard({ expense, onDelete }) {
-
   const navigate = useNavigate();
 
   return (
@@ -28,7 +27,7 @@ function ExpenseCard({ expense, onDelete }) {
 
           <button
             className="btn btn-outline-warning btn-sm me-2"
-            onClick={() => navigate(`/edit/${expense.expenseId}`)}
+            onClick={() => navigate(`/expenses/edit/${expense.expenseId}`)}
           >
             ✏ Edit
           </button>
@@ -36,7 +35,11 @@ function ExpenseCard({ expense, onDelete }) {
           <button
             className="btn btn-outline-danger btn-sm"
             onClick={() => {
-              if (window.confirm("Are you sure you want to delete this expense?")) {
+              if (
+                window.confirm(
+                  "Are you sure you want to delete this expense?"
+                )
+              ) {
                 onDelete(expense.expenseId);
               }
             }}

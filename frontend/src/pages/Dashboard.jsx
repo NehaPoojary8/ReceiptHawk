@@ -48,6 +48,7 @@ function Dashboard() {
         <SummaryCard title="Total Expense" amount="₹15000" />
         <SummaryCard title="Total Budget" amount="₹20000" />
         <SummaryCard title="Remaining Budget" amount="₹5000" />
+        <SummaryCard title="Average Expense" amount="₹5000" />
       </div>
 
       {/* Expense Chart */}
