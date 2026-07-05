@@ -48,7 +48,7 @@ function ExpenseForm({ expenseData, isEdit = false }) {
 
       }
 
-      navigate("/");
+      navigate("/expenses");
 
     } catch (error) {
 
