@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -17,74 +17,72 @@ import MainLayout from "./components/MainLayout";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Authentication */}
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+    <Routes>
+      {/* Authentication */}
+      <Route path="/" element={<Login />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
 
-        {/* Protected pages */}
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
+      {/* Profile */}
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
 
-        {/* Expense Module */}
-        <Route path="/expenses" element={<ExpenseList />} />
-        <Route path="/expenses/add" element={<AddExpense />} />
-        <Route path="/expenses/edit/:id" element={<EditExpense />} />
+      {/* Expense Module */}
+      <Route path="/expenses" element={<ExpenseList />} />
+      <Route path="/expenses/add" element={<AddExpense />} />
+      <Route path="/expenses/edit/:id" element={<EditExpense />} />
 
-        {/* Dashboard Module */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <MainLayout>
-                <Dashboard />
-              </MainLayout>
-            </ProtectedRoute>
-          }
-        />
+      {/* Dashboard */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <Dashboard />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
 
-        <Route
-          path="/reports"
-          element={
-            <ProtectedRoute>
-              <MainLayout>
-                <Reports />
-              </MainLayout>
-            </ProtectedRoute>
-          }
-        />
+      <Route
+        path="/reports"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <Reports />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
 
-        <Route
-          path="/upload"
-          element={
-            <ProtectedRoute>
-              <MainLayout>
-                <UploadReceipt />
-              </MainLayout>
-            </ProtectedRoute>
-          }
-        />
+      <Route
+        path="/upload"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <UploadReceipt />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
 
-        <Route
-          path="/settings"
-          element={
-            <ProtectedRoute>
-              <MainLayout>
-                <Settings />
-              </MainLayout>
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <Settings />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
 }
 

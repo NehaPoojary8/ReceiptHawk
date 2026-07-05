@@ -1,54 +1,76 @@
 import { useNavigate } from "react-router-dom";
+import "./Profile.css";
 
 function Profile() {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
 
-    const handleLogout = () => {
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
 
-        localStorage.removeItem("user");
+  return (
+    <div className="profile-page">
+      <div className="profile-card">
 
-        navigate("/login");
+        <div className="profile-header">
 
-    };
-
-    return (
-
-        <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-                background: "#f5f9ff",
-            }}
-        >
-
-            <h1>Welcome to ReceiptHawk 🎉</h1>
-
-            <p>You have successfully logged in.</p>
-
-            <button
-                onClick={handleLogout}
-                style={{
-                    marginTop: "20px",
-                    padding: "12px 30px",
-                    border: "none",
-                    borderRadius: "10px",
-                    background: "#2563eb",
-                    color: "white",
-                    fontSize: "16px",
-                    cursor: "pointer",
-                }}
-            >
-                Logout
-            </button>
+          <div className="profile-avatar">
+            👤
+          </div>
 
         </div>
 
-    );
+        <div className="profile-content">
 
+          <h2>{user?.fullName || "User"}</h2>
+
+          <p className="role">
+            ReceiptHawk User
+          </p>
+
+          <div className="info-box">
+            <span>Email</span>
+            <p>{user?.email || "Not Available"}</p>
+          </div>
+
+          <div className="info-box">
+            <span>Phone Number</span>
+            <p>{user?.phoneNumber || "Not Available"}</p>
+          </div>
+
+          <div className="info-box">
+            <span>Account Status</span>
+            <p className="status">
+              Active ✅
+            </p>
+          </div>
+
+          <div className="profile-buttons">
+
+            <button
+              className="dashboard-btn"
+              onClick={() => navigate("/dashboard")}
+            >
+              Dashboard
+            </button>
+
+            <button
+              className="logout-btn"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  );
 }
 
 export default Profile;

@@ -27,7 +27,7 @@ export default function Login() {
       const response = await axios.post("http://localhost:8083/api/auth/login", loginData);
       localStorage.setItem("user", JSON.stringify(response.data));
       alert("Login Successful!");
-      navigate("/profile");
+      navigate("/dashboard");
     } catch (error) {
       alert("Invalid Email or Password!");
     }
