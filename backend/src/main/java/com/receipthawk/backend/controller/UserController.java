@@ -1,5 +1,5 @@
 package com.receipthawk.backend.controller;
-
+import com.receipthawk.backend.dto.ChangePasswordRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,5 +22,18 @@ public class UserController {
                            @RequestBody User user) {
 
         return userService.updateUser(id, user);
+        
     }
+    @PutMapping("/change-password")
+public String changePassword(@RequestBody ChangePasswordRequest request) {
+
+    userService.changePassword(
+            request.getUserId(),
+            request.getCurrentPassword(),
+            request.getNewPassword(),
+            request.getConfirmPassword()
+    );
+
+    return "Password updated successfully!";
+}
 }
