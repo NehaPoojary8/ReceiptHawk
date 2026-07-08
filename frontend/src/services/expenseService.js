@@ -26,3 +26,16 @@ export const updateExpense = (id, expense) => {
 export const deleteExpense = (id) => {
   return axios.delete(`${API_URL}/${id}`);
 };
+// Export PDF
+export const exportPdf = () => {
+  return axios.get(`${API_URL}/export/pdf`, {
+    responseType: "blob",
+  });
+};
+
+// Export Excel
+export const exportExcel = () => {
+  return axios.get(`${API_URL}/export/excel`, {
+    responseType: "blob",
+  });
+};

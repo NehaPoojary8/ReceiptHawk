@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ExpenseCard from "../components/ExpenseCard";
-import { getAllExpenses, deleteExpense } from "../services/expenseService";
+import {
+  getAllExpenses,
+  deleteExpense,
+  exportPdf,
+  exportExcel,
+} from "../services/expenseService";
 
 function ExpenseList() {
   const [expenses, setExpenses] = useState([]);
@@ -34,6 +39,45 @@ function ExpenseList() {
       alert("Failed to delete expense!");
     }
   };
+  const handleExportPdf = async () => {
+  try {
+    const response = await exportPdf();
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.setAttribute("download", "ReceiptHawk_Expenses.pdf");
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+  } catch (error) {
+    console.error(error);
+    alert("Failed to export PDF!");
+  }
+};
+
+const handleExportExcel = async () => {
+  try {
+    const response = await exportExcel();
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.setAttribute("download", "ReceiptHawk_Expenses.xlsx");
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+  } catch (error) {
+    console.error(error);
+    alert("Failed to export Excel!");
+  }
+};
 
   const totalExpenses = expenses.reduce(
     (sum, expense) => sum + expense.amount,
@@ -55,12 +99,30 @@ function ExpenseList() {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="text-primary">Expense List</h2>
 
-        <button
-          className="btn btn-primary rounded-pill px-4"
-          onClick={() => navigate("/expenses/add")}
-        >
-          ➕ Add Expense
-        </button>
+        <div className="d-flex gap-2">
+
+  <button
+    className="btn btn-danger"
+    onClick={handleExportPdf}
+  >
+    📄 PDF
+  </button>
+
+  <button
+    className="btn btn-success"
+    onClick={handleExportExcel}
+  >
+    📊 Excel
+  </button>
+
+  <button
+    className="btn btn-primary rounded-pill px-4"
+    onClick={() => navigate("/expenses/add")}
+  >
+    ➕ Add Expense
+  </button>
+
+</div>
       </div>
 
       {/* Summary Cards */}
