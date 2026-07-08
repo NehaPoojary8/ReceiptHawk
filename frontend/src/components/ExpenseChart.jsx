@@ -1,14 +1,22 @@
-import { PieChart, Pie, Tooltip, Cell } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Tooltip,
+  Cell
+} from "recharts";
 
-const data = [
-  { name: "Housing", value: 400 },
-  { name: "Food", value: 300 },
-  { name: "Transportation", value: 200 }
+const COLORS = [
+  "#a78bfa",
+  "#818cf8",
+  "#6d28d9",
+  "#22c55e",
+  "#f59e0b",
+  "#ef4444"
 ];
 
-const COLORS = ["#a78bfa", "#818cf8", "#6d28d9"];
-
-function ExpenseChart() {
+function ExpenseChart({
+  data = []
+}) {
   return (
     <PieChart width={600} height={420}>
       <Pie
@@ -20,9 +28,17 @@ function ExpenseChart() {
         label
       >
         {data.map((entry, index) => (
-          <Cell key={index} fill={COLORS[index]} />
+          <Cell
+            key={index}
+            fill={
+              COLORS[
+                index % COLORS.length
+              ]
+            }
+          />
         ))}
       </Pie>
+
       <Tooltip />
     </PieChart>
   );

@@ -1,37 +1,6 @@
-function RecentTransactions() {
-  const transactions = [
-    {
-      merchant: "DMart",
-      amount: "₹850",
-      category: "Grocery",
-      icon: "🛒"
-    },
-    {
-      merchant: "Uber",
-      amount: "₹240",
-      category: "Travel",
-      icon: "🚕"
-    },
-    {
-      merchant: "Pizza Hut",
-      amount: "₹650",
-      category: "Food",
-      icon: "🍕"
-    },
-    {
-      merchant: "Amazon",
-      amount: "₹1200",
-      category: "Shopping",
-      icon: "🛍️"
-    },
-    {
-      merchant: "Starbucks",
-      amount: "₹450",
-      category: "Coffee",
-      icon: "☕"
-    }
-  ];
-
+function RecentTransactions({
+  transactions = []
+}) {
   return (
     <div
       style={{
@@ -52,48 +21,35 @@ function RecentTransactions() {
         🕒 Recent Transactions
       </h2>
 
-      {transactions.map((item, index) => (
+      {transactions.map((item) => (
         <div
-          key={index}
+          key={item.expenseId}
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             padding: "16px 10px",
-            borderBottom:
-              index !== transactions.length - 1
-                ? "1px solid #e2e8f0"
-                : "none"
+            borderBottom: "1px solid #e2e8f0"
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "15px"
-            }}
-          >
-            <span style={{ fontSize: "30px" }}>{item.icon}</span>
+          <div>
+            <h3
+              style={{
+                margin: 0,
+                color: "#1e293b"
+              }}
+            >
+              {item.title}
+            </h3>
 
-            <div>
-              <h3
-                style={{
-                  margin: 0,
-                  color: "#1e293b"
-                }}
-              >
-                {item.merchant}
-              </h3>
-
-              <p
-                style={{
-                  margin: "4px 0 0",
-                  color: "#64748b"
-                }}
-              >
-                {item.category}
-              </p>
-            </div>
+            <p
+              style={{
+                margin: "4px 0 0",
+                color: "#64748b"
+              }}
+            >
+              {item.category}
+            </p>
           </div>
 
           <h3
@@ -102,7 +58,7 @@ function RecentTransactions() {
               margin: 0
             }}
           >
-            {item.amount}
+            ₹{item.amount}
           </h3>
         </div>
       ))}

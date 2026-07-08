@@ -1,4 +1,7 @@
-function HighestCategoryCard() {
+function HighestCategoryCard({
+  category = "None",
+  amount = 0
+}) {
   return (
     <div
       style={{
@@ -7,8 +10,7 @@ function HighestCategoryCard() {
         padding: "35px",
         width: "400px",
         boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
-        textAlign: "center",
-        transition: "0.3s"
+        textAlign: "center"
       }}
     >
       <h2
@@ -26,7 +28,7 @@ function HighestCategoryCard() {
           marginBottom: "15px"
         }}
       >
-        🍔
+        💰
       </div>
 
       <h1
@@ -35,7 +37,7 @@ function HighestCategoryCard() {
           marginBottom: "10px"
         }}
       >
-        Food
+        {category}
       </h1>
 
       <h2
@@ -44,7 +46,7 @@ function HighestCategoryCard() {
           marginBottom: "15px"
         }}
       >
-        ₹8,500
+        ₹{amount}
       </h2>
 
       <p
