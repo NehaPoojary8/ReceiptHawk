@@ -23,6 +23,7 @@ public class User {
     private String phoneNumber;
 
     private String password;
+    private String profileImage;
 
     public User() {
     }
@@ -74,4 +75,11 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    public String getProfileImage() {
+    return profileImage;
+}
+
+public void setProfileImage(String profileImage) {
+    this.profileImage = profileImage;
+}
 }

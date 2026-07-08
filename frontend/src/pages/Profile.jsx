@@ -12,7 +12,7 @@ function Profile() {
   );
 
   const [isEditing, setIsEditing] = useState(false);
-
+  
   const handleChange = (e) => {
     setUser({
       ...user,
@@ -45,15 +45,81 @@ function Profile() {
     localStorage.removeItem("user");
     navigate("/login");
   };
+  const handleImageChange = (e) => {
+
+  const file = e.target.files[0];
+
+  if (!file) return;
+
+  // ✅ Only allow image files
+  if (!file.type.startsWith("image/")) {
+    alert("Please select a valid image.");
+    return;
+  }
+
+  // ✅ Maximum size 2MB
+  if (file.size > 2 * 1024 * 1024) {
+    alert("Please select an image smaller than 2MB.");
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = () => {
+
+    const updatedUser = {
+      ...user,
+      profileImage: reader.result,
+    };
+
+    setUser(updatedUser);
+
+    localStorage.setItem(
+      "user",
+      JSON.stringify(updatedUser)
+    );
+
+  };
+
+  reader.readAsDataURL(file);
+
+};
 
   return (
     <div className="profile-page">
       <div className="profile-card">
 
         <div className="profile-header">
-          <div className="profile-avatar">
-            👤
-          </div>
+      <div className="profile-header">
+
+  <div className="profile-avatar">
+
+    {user?.profileImage ? (
+      <img
+        src={user.profileImage}
+        alt="Profile"
+        className="avatar-image"
+      />
+    ) : (
+      <span className="avatar-icon">👤</span>
+    )}
+
+    <label className="edit-photo">
+
+      ✏️
+
+      <input
+        type="file"
+        hidden
+        accept="image/*"
+        onChange={handleImageChange}
+      />
+
+    </label>
+
+  </div>
+
+</div>
         </div>
 
         <div className="profile-content">
@@ -121,6 +187,18 @@ function Profile() {
             </p>
 
           </div>
+          <div className="info-box">
+
+  <span>Profile Picture</span>
+
+  <input
+    type="file"
+    accept="image/*"
+    className="form-control mt-2"
+    onChange={handleImageChange}
+  />
+
+</div>
 
           <div className="profile-buttons">
 
