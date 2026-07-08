@@ -9,7 +9,7 @@ export const getAllExpenses = () => {
 
 // Get one expense by ID
 export const getExpenseById = (id) => {
-  return axios.get(`${API_URL}/${id}`);
+  return axios.get(`${API_URL}/id/${id}`);
 };
 
 // Add expense
@@ -38,4 +38,8 @@ export const exportExcel = () => {
   return axios.get(`${API_URL}/export/excel`, {
     responseType: "blob",
   });
+};
+// Filter by Date
+export const filterByDate = (date) => {
+  return axios.get(`${API_URL}/date?date=${date}`);
 };

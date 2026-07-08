@@ -6,12 +6,14 @@ import {
   deleteExpense,
   exportPdf,
   exportExcel,
+  filterByDate,
 } from "../services/expenseService";
 
 function ExpenseList() {
   const [expenses, setExpenses] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All Categories");
+  const [selectedDate, setSelectedDate] = useState("");
 
   const navigate = useNavigate();
 
@@ -76,6 +78,22 @@ const handleExportExcel = async () => {
   } catch (error) {
     console.error(error);
     alert("Failed to export Excel!");
+  }
+};
+const handleDateFilter = async (date) => {
+  setSelectedDate(date);
+
+  if (date === "") {
+    loadExpenses();
+    return;
+  }
+
+  try {
+    const response = await filterByDate(date);
+    setExpenses(response.data);
+  } catch (error) {
+    console.error(error);
+    alert("Failed to filter by date!");
   }
 };
 
@@ -161,35 +179,51 @@ const handleExportExcel = async () => {
       </div>
 
       {/* Search & Filter */}
-      <div className="row mb-4">
+      
+         {/* Search, Date Filter & Category Filter */}
+<div className="row mb-4">
 
-        <div className="col-md-8">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="🔍 Search Expense..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
+  {/* Search */}
+  <div className="col-md-5">
+    <input
+      type="text"
+      className="form-control"
+      placeholder="🔍 Search Expense..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+    />
+  </div>
 
-        <div className="col-md-4">
-          <select
-            className="form-select"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option>All Categories</option>
-            <option>Food</option>
-            <option>Travel</option>
-            <option>Shopping</option>
-            <option>Bills</option>
-            <option>Medical</option>
-            <option>Education</option>
-          </select>
-        </div>
+  {/* Date Filter */}
+  <div className="col-md-3">
+    <input
+      type="date"
+      className="form-control"
+      value={selectedDate}
+      onChange={(e) => handleDateFilter(e.target.value)}
+    />
+  </div>
 
-      </div>
+  {/* Category Filter */}
+  <div className="col-md-4">
+    <select
+      className="form-select"
+      value={category}
+      onChange={(e) => setCategory(e.target.value)}
+    >
+      <option>All Categories</option>
+      <option>Food</option>
+      <option>Travel</option>
+      <option>Shopping</option>
+      <option>Bills</option>
+      <option>Medical</option>
+      <option>Education</option>
+    </select>
+  </div>
+
+</div>  
+
+      
 
       {/* Expense Cards */}
       <div className="mt-4">
