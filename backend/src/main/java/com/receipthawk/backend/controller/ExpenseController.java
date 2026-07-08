@@ -3,6 +3,9 @@ package com.receipthawk.backend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.receipthawk.backend.dto.DashboardSummary;
+import com.receipthawk.backend.dto.MonthlySummary;
 import com.receipthawk.backend.entity.Expense;
 import com.receipthawk.backend.service.ExpenseService;
 
@@ -66,4 +71,44 @@ public List<Expense> filterByCategory(@RequestParam String category) {
                                  @RequestBody Expense expense) {
         return expenseService.updateExpense(id, expense);
     }
+    // Export Expenses to PDF
+@GetMapping("/export/pdf")
+public ResponseEntity<byte[]> exportPdf() {
+
+    byte[] pdf = expenseService.exportExpensesToPdf();
+
+    return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION,
+                    "attachment; filename=ReceiptHawk_Expenses.pdf")
+            .contentType(MediaType.APPLICATION_PDF)
+            .body(pdf);
+}
+// Export Expenses to Excel
+@GetMapping("/export/excel")
+public ResponseEntity<byte[]> exportExcel() {
+
+    byte[] excel = expenseService.exportExpensesToExcel();
+
+    return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION,
+                    "attachment; filename=ReceiptHawk_Expenses.xlsx")
+            .contentType(MediaType.parseMediaType(
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+            .body(excel);
+}
+// Dashboard Summary
+@GetMapping("/dashboard-summary")
+public DashboardSummary getDashboardSummary() {
+    return expenseService.getDashboardSummary();
+}
+// Monthly Expense Summary
+@GetMapping("/monthly-summary")
+public MonthlySummary getMonthlySummary(@RequestParam String month) {
+    return expenseService.getMonthlySummary(month);
+}
+// Filter By Date
+@GetMapping("/date")
+public List<Expense> filterByDate(@RequestParam String date) {
+    return expenseService.filterByDate(date);
+}
 }
