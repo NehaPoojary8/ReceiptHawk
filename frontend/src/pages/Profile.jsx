@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateUser } from "../services/userService";
 import "./Profile.css";
-
+import { changePassword } from "../services/userService";
+import ChangePassword from "../components/ChangePassword";
 function Profile() {
   const navigate = useNavigate();
 
@@ -165,7 +166,7 @@ function Profile() {
             )}
 
           </div>
-
+            <ChangePassword user={user} />
         </div>
 
       </div>

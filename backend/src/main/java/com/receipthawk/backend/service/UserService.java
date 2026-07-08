@@ -13,7 +13,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public User registerUser(User user) {
 
@@ -48,5 +48,33 @@ public class UserService {
     user.setPhoneNumber(updatedUser.getPhoneNumber());
 
     return userRepository.save(user);
+}
+public void changePassword(Long userId,
+                           String currentPassword,
+                           String newPassword,
+                           String confirmPassword) {
+
+    User user = userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found!"));
+
+    // Check current password
+    if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+        throw new RuntimeException("Current password is incorrect!");
+    }
+
+    // Check new password and confirm password
+    if (!newPassword.equals(confirmPassword)) {
+        throw new RuntimeException("Passwords do not match!");
+    }
+
+    // Validate password length
+    if (newPassword.length() < 8) {
+        throw new RuntimeException("Password must be at least 8 characters!");
+    }
+
+    // Encrypt and save new password
+    user.setPassword(passwordEncoder.encode(newPassword));
+
+    userRepository.save(user);
 }
 }
