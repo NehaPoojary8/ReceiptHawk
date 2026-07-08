@@ -1,6 +1,9 @@
 import SummaryCard from "../components/SummaryCard";
 import ExpenseChart from "../components/ExpenseChart";
 import BudgetAlert from "../components/BudgetAlert";
+import HighestCategoryCard from "../components/HighestCategoryCard";
+import MonthComparison from "../components/MonthComparison";
+import RecentTransactions from "../components/RecentTransactions";
 
 function Dashboard() {
   return (
@@ -82,7 +85,29 @@ function Dashboard() {
           <ExpenseChart />
         </div>
       </div>
-
+{/* Analytics Section */}
+<div
+  style={{
+    width: "90%",
+    margin: "35px auto",
+    display: "flex",
+    justifyContent: "space-evenly",
+    alignItems: "stretch",
+    gap: "25px"
+  }}
+>
+  <HighestCategoryCard />
+  <MonthComparison />
+</div>
+{/* Recent Transactions */}
+<div
+  style={{
+    width: "90%",
+    margin: "35px auto"
+  }}
+>
+  <RecentTransactions />
+</div>
       {/* Budget Alert */}
       <div
         style={{
