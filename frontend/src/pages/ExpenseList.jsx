@@ -56,7 +56,7 @@ function ExpenseList() {
         <h2 className="text-primary">Expense List</h2>
 
         <button
-          className="btn btn-primary rounded-pill px-4"
+          className="btn app-btn rounded-pill px-4"
           onClick={() => navigate("/expenses/add")}
         >
           ➕ Add Expense
