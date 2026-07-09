@@ -179,11 +179,10 @@ function Dashboard() {
         style={{
           width: "90%",
           margin: "35px auto",
-          display: "flex",
-          justifyContent: "space-evenly",
-          alignItems: "stretch",
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
           gap: "25px",
-          flexWrap: "wrap"
+          alignItems: "stretch"
         }}
       >
         <HighestCategoryCard
