@@ -118,19 +118,33 @@ const handleDateFilter = async (date) => {
         <h2 className="text-primary">Expense List</h2>
 
         <div className="d-flex gap-2">
-<button className="btn btn-outline-danger">
-  <i className="bi bi-file-earmark-pdf"></i> PDF
-</button>
-  
-<button className="btn btn-outline-success">
-  <i className="bi bi-file-earmark-excel"></i> Excel
-</button>
-  <button className="btn btn-primary">
-  ➕ Add Expense
-</button>
+
+
+
+  <button
+    className="btn btn-outline-danger"
+    onClick={handleExportPdf}
+  >
+    <i className="bi bi-file-earmark-pdf"></i> PDF
+  </button>
+
+  <button
+    className="btn btn-outline-success"
+    onClick={handleExportExcel}
+  >
+    <i className="bi bi-file-earmark-excel"></i> Excel
+  </button>
+
+  <button
+    className="btn btn-primary"
+    onClick={() => navigate("/expenses/add")}
+  >
+    ➕ Add Expense
+  </button>
 
 </div>
-      </div>
+</div>
+      
 
       {/* Summary Cards */}
       <div className="row mb-4">
