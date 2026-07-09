@@ -154,7 +154,7 @@ function ExpenseForm({ expenseData, isEdit = false }) {
 
       <div className="d-grid">
 
-        <button className="btn btn-primary btn-lg">
+        <button className="btn app-btn btn-lg">
 
           {isEdit ? "Update Expense" : "Save Expense"}
 

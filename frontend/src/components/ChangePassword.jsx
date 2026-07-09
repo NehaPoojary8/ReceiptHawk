@@ -46,13 +46,23 @@ function ChangePassword({ user }) {
   };
 
   return (
-    <div className="info-box mt-4">
-      <h4 className="mb-3">🔒 Change Password</h4>
+    <div className="change-password-card">
+
+      <h3 className="password-title">
+        🔒 Security
+      </h3>
+
+      <p className="password-text">
+        Change your password to keep your account secure.
+      </p>
 
       <form onSubmit={handleUpdatePassword}>
 
         <div className="mb-3">
-          <label className="form-label">Current Password</label>
+          <label className="form-label">
+            🔑 Current Password
+          </label>
+
           <input
             type="password"
             className="form-control"
@@ -64,7 +74,10 @@ function ChangePassword({ user }) {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">New Password</label>
+          <label className="form-label">
+            🆕 New Password
+          </label>
+
           <input
             type="password"
             className="form-control"
@@ -76,7 +89,10 @@ function ChangePassword({ user }) {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Confirm Password</label>
+          <label className="form-label">
+            ✅ Confirm Password
+          </label>
+
           <input
             type="password"
             className="form-control"
@@ -89,12 +105,13 @@ function ChangePassword({ user }) {
 
         <button
           type="submit"
-          className="btn btn-primary w-100"
+          className="btn app-btn w-100 mt-3"
         >
           Update Password
         </button>
 
       </form>
+
     </div>
   );
 }

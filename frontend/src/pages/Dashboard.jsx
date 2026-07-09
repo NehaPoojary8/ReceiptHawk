@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
+=======
+import "./Dashboard.css";
+>>>>>>> c95f81da7db206e8faaf799ad1d5ae0f5270aa4a
 import SummaryCard from "../components/SummaryCard";
 import ExpenseChart from "../components/ExpenseChart";
 import BudgetAlert from "../components/BudgetAlert";
@@ -8,6 +12,7 @@ import RecentTransactions from "../components/RecentTransactions";
 import { getAllExpenses } from "../services/expenseService";
 
 function Dashboard() {
+<<<<<<< HEAD
   const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
@@ -97,19 +102,26 @@ function Dashboard() {
         >
           Dashboard Overview
         </h1>
+=======
+  const user = JSON.parse(localStorage.getItem("user"));
 
-        <p
-          style={{
-            marginTop: "15px",
-            color: "#64748b",
-            fontSize: "18px",
-            fontWeight: "500"
-          }}
-        >
-          Monitor expenses, budget, and spending insights
-        </p>
+  return (
+    <div className="dashboard-container">
+>>>>>>> c95f81da7db206e8faaf799ad1d5ae0f5270aa4a
+
+      {/* Header */}
+      <div className="dashboard-header">
+        <h1 style={{ color: "blue" }}>Welcome to Your Dashboard</h1>
+        <p>Here's your financial summary.</p>
       </div>
+<div className="summary-grid">
+  <SummaryCard title="Total Expense" amount="₹15,000" />
+  <SummaryCard title="Total Budget" amount="₹20,000" />
+  <SummaryCard title="Remaining Budget" amount="₹5,000" />
+</div>
+<div className="dashboard-grid">
 
+<<<<<<< HEAD
       {/* Summary Cards */}
       <div
         style={{
@@ -225,17 +237,29 @@ function Dashboard() {
         >
           Budget Status
         </h2>
+=======
+  <div className="dashboard-card">
+    <h2>Expense Distribution</h2>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            transform: "scale(1.15)"
-          }}
-        >
-          <BudgetAlert />
-        </div>
-      </div>
+    <div className="chart-wrapper">
+      <ExpenseChart />
+    </div>
+  </div>
+
+  <div className="dashboard-card">
+    <h2>Budget Status</h2>
+
+    <div className="chart-wrapper">
+      <BudgetAlert />
+    </div>
+  </div>
+
+</div>
+      
+
+      
+>>>>>>> c95f81da7db206e8faaf799ad1d5ae0f5270aa4a
+
     </div>
   );
 }
