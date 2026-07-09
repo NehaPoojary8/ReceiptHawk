@@ -12,7 +12,7 @@ import RecentTransactions from "../components/RecentTransactions";
 import { getAllExpenses } from "../services/expenseService";
 
 function Dashboard() {
-<<<<<<< HEAD
+<<<<<<< HEADCD...
   const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
