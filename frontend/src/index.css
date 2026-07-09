@@ -55,15 +55,10 @@ body {
 }
 
 #root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
 }
 
 h1,
@@ -127,4 +122,23 @@ body {
 .form-select:focus {
   border-color: #0d6efd;
   box-shadow: 0 0 10px rgba(13, 110, 253, 0.25);
+}
+/* ===========================
+   Global Button Style
+=========================== */
+
+.app-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:10px;
+    padding:10px 20px;
+    font-weight:600;
+    transition:all .3s ease;
+}
+
+.app-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+    box-shadow:0 4px 10px rgba(0,0,0,.15);
 }

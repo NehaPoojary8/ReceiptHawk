@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateUser } from "../services/userService";
 import "./Profile.css";
-import { changePassword } from "../services/userService";
 import ChangePassword from "../components/ChangePassword";
 function Profile() {
   const navigate = useNavigate();
@@ -86,170 +85,240 @@ function Profile() {
 };
 
   return (
-    <div className="profile-page">
-      <div className="profile-card">
+    <div className="profile-container">
+  <div className="profile-wrapper">
 
-        <div className="profile-header">
-      <div className="profile-header">
+    <div className="profile-sidebar">
 
-  <div className="profile-avatar">
+    <div className="profile-cover"></div>
 
-    {user?.profileImage ? (
-      <img
-        src={user.profileImage}
-        alt="Profile"
-        className="avatar-image"
-      />
-    ) : (
-      <span className="avatar-icon">👤</span>
-    )}
+    <div className="profile-avatar">
 
-    <label className="edit-photo">
+        {user?.profileImage ? (
+            <img
+                src={user.profileImage}
+                alt="Profile"
+                className="avatar-image"
+            />
+        ) : (
+            <span className="avatar-icon">👤</span>
+        )}
 
-      ✏️
+        <label className="edit-photo">
 
-      <input
-        type="file"
-        hidden
-        accept="image/*"
-        onChange={handleImageChange}
-      />
+            ✏️
 
-    </label>
+            <input
+                type="file"
+                hidden
+                accept="image/*"
+                onChange={handleImageChange}
+            />
 
+        </label>
+
+    </div>
+
+    <h2 className="profile-name">
+        {user?.fullName}
+    </h2>
+
+    <p className="profile-role">
+        ReceiptHawk User
+    </p>
+
+    <div className="sidebar-buttons">
+
+        <button
+            className="sidebar-btn"
+            onClick={() => navigate("/dashboard")}
+        >
+            Dashboard
+        </button>
+
+        <button
+            className="sidebar-btn"
+            onClick={() => setIsEditing(true)}
+        >
+            Edit Profile
+        </button>
+
+        <button
+            className="sidebar-btn logout"
+            onClick={handleLogout}
+        >
+            Logout
+        </button>
+
+    </div>
+
+</div>
+
+<div className="profile-main">
+
+  <div className="profile-card">
+
+    <div className="card-header-custom">
+
+      <div>
+        <h2>Personal Information</h2>
+        <p>Manage your personal details</p>
+      </div>
+
+      {isEditing ? (
+        <button
+          className="save-btn"
+          onClick={handleSave}
+        >
+          💾 Save Changes
+        </button>
+      ) : (
+        <button
+          className="edit-btn"
+          onClick={() => setIsEditing(true)}
+        >
+          ✏ Edit Profile
+        </button>
+      )}
+
+    </div>
+
+    <div className="profile-grid">
+
+      {/* Full Name */}
+
+      <div className="input-group-custom">
+
+        <label>Full Name</label>
+
+        {isEditing ? (
+          <input
+            className="form-control"
+            name="fullName"
+            value={user.fullName}
+            onChange={handleChange}
+          />
+        ) : (
+          <div className="display-box">
+            {user.fullName}
+          </div>
+        )}
+
+      </div>
+
+      {/* Email */}
+
+      <div className="input-group-custom">
+
+        <label>Email</label>
+
+        <div className="display-box">
+          {user.email}
+        </div>
+
+      </div>
+
+      {/* Phone */}
+
+      <div className="input-group-custom">
+
+        <label>Phone Number</label>
+
+        {isEditing ? (
+          <input
+            className="form-control"
+            name="phoneNumber"
+            value={user.phoneNumber}
+            onChange={handleChange}
+          />
+        ) : (
+          <div className="display-box">
+            {user.phoneNumber}
+          </div>
+        )}
+
+      </div>
+
+      {/* Status */}
+
+      <div className="input-group-custom">
+
+        <label>Status</label>
+
+        <div className="display-box status-active">
+          🟢 Active
+        </div>
+
+      </div>
+      {/* Password */}
+
+<div className="input-group-custom">
+
+  <label>Password</label>
+
+  <div className="display-box">
+    ************
   </div>
 
 </div>
-        </div>
 
-        <div className="profile-content">
+<div className="input-group-custom">
 
-          <h2>{user?.fullName}</h2>
+  <label>&nbsp;</label>
 
-          <p className="role">
-            ReceiptHawk User
-          </p>
-
-          {/* Full Name */}
-
-          <div className="info-box">
-
-            <span>Full Name</span>
-
-            {isEditing ? (
-              <input
-                className="form-control mt-2"
-                name="fullName"
-                value={user.fullName}
-                onChange={handleChange}
-              />
-            ) : (
-              <p>{user.fullName}</p>
-            )}
-
-          </div>
-
-          {/* Email */}
-
-          <div className="info-box">
-
-            <span>Email</span>
-
-            <p>{user.email}</p>
-
-          </div>
-
-          {/* Phone */}
-
-          <div className="info-box">
-
-            <span>Phone Number</span>
-
-            {isEditing ? (
-              <input
-                className="form-control mt-2"
-                name="phoneNumber"
-                value={user.phoneNumber}
-                onChange={handleChange}
-              />
-            ) : (
-              <p>{user.phoneNumber}</p>
-            )}
-
-          </div>
-
-          <div className="info-box">
-
-            <span>Account Status</span>
-
-            <p className="status">
-              Active ✅
-            </p>
-
-          </div>
-          <div className="info-box">
-
-  <span>Profile Picture</span>
-
-  <input
-    type="file"
-    accept="image/*"
-    className="form-control mt-2"
-    onChange={handleImageChange}
-  />
+  <button
+    className="edit-btn"
+    data-bs-toggle="modal"
+    data-bs-target="#passwordModal"
+  >
+    🔒 Change Password
+  </button>
 
 </div>
 
-          <div className="profile-buttons">
+    </div>
 
-            {isEditing ? (
-              <>
-                <button
-                  className="dashboard-btn"
-                  onClick={handleSave}
-                >
-                  Save
-                </button>
+  </div>
+     
+           </div>
+  </div>
 
-                <button
-                  className="logout-btn"
-                  onClick={() => setIsEditing(false)}
-                >
-                  Cancel
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  className="dashboard-btn"
-                  onClick={() => navigate("/dashboard")}
-                >
-                  Dashboard
-                </button>
+  {/* Change Password Modal */}
 
-                <button
-                  className="dashboard-btn"
-                  onClick={() => setIsEditing(true)}
-                >
-                  Edit Profile
-                </button>
+  <div
+    className="modal fade"
+    id="passwordModal"
+    tabIndex="-1"
+    aria-hidden="true"
+  >
+    <div className="modal-dialog modal-dialog-centered">
+      <div className="modal-content">
 
-                <button
-                  className="logout-btn"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-              </>
-            )}
+        <div className="modal-header">
+          <h5 className="modal-title">
+            🔒 Change Password
+          </h5>
 
-          </div>
-            <ChangePassword user={user} />
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="modal"
+          ></button>
+
+        </div>
+
+        <div className="modal-body">
+          <ChangePassword user={user} />
         </div>
 
       </div>
     </div>
-  );
+  </div>
+
+</div>
+
+);
+
 }
 
 export default Profile;

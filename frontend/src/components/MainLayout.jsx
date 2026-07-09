@@ -1,127 +1,128 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./MainLayout.css";
 
 function MainLayout({ children }) {
   const [hoveredItem, setHoveredItem] = useState("");
   const navigate = useNavigate();
 
-  const menuStyle = (item) => ({
-    padding: "14px",
-    borderRadius: "12px",
-    cursor: "pointer",
-    backgroundColor: hoveredItem === item ? "#475569" : "#334155",
-    transform:
-      hoveredItem === item
-        ? "translateX(6px) scale(1.02)"
-        : "translateX(0)",
-    boxShadow:
-      hoveredItem === item
-        ? "0 6px 16px rgba(0,0,0,0.25)"
-        : "none",
-    transition: "all 0.3s ease",
-  });
+  const menuClass = (item) =>
+    hoveredItem === item ? "menu-item active" : "menu-item";
 
-  return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
-      {/* Sidebar */}
-      <div
-        style={{
-          width: "260px",
-          background: "linear-gradient(180deg, #1e293b, #0f172a)",
-          color: "white",
-          padding: "30px 20px",
-          boxShadow: "2px 0 15px rgba(0,0,0,0.2)",
-        }}
-      >
-        <h1
-          style={{
-            fontSize: "28px",
-            marginBottom: "50px",
-            color: "#38bdf8",
-          }}
-        >
-          ReceiptHawk
-        </h1>
-
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "20px",
-          }}
-        >
-          <div
-            onClick={() => navigate("/dashboard")}
-            onMouseEnter={() => setHoveredItem("dashboard")}
-            onMouseLeave={() => setHoveredItem("")}
-            style={menuStyle("dashboard")}
-          >
-            🏠 Dashboard
-          </div>
-          <div
-  onClick={() => navigate("/expenses")}
-  onMouseEnter={() => setHoveredItem("expenses")}
-  onMouseLeave={() => setHoveredItem("")}
-  style={menuStyle("expenses")}
->
-  💰 Expenses
-</div>
-
-          <div
-            onClick={() => navigate("/reports")}
-            onMouseEnter={() => setHoveredItem("reports")}
-            onMouseLeave={() => setHoveredItem("")}
-            style={menuStyle("reports")}
-          >
-            📊 Reports
-          </div>
-<div
-  onClick={() => navigate("/profile")}
-  onMouseEnter={() => setHoveredItem("profile")}
-  onMouseLeave={() => setHoveredItem("")}
-  style={menuStyle("profile")}
->
-  👤 Profile
-</div>
-          <div
-            onClick={() => navigate("/upload")}
-            onMouseEnter={() => setHoveredItem("upload")}
-            onMouseLeave={() => setHoveredItem("")}
-            style={menuStyle("upload")}
-          >
-            📤 Upload Receipt
-          </div>
-
-          <div
-            onClick={() => navigate("/settings")}
-            onMouseEnter={() => setHoveredItem("settings")}
-            onMouseLeave={() => setHoveredItem("")}
-            style={menuStyle("settings")}
-          >
-            ⚙ Settings
-          </div>
-        </div>
-      </div>
-<div
-  onClick={() => {
+  const logout = () => {
     localStorage.removeItem("user");
     navigate("/login");
-  }}
-  onMouseEnter={() => setHoveredItem("logout")}
-  onMouseLeave={() => setHoveredItem("")}
-  style={menuStyle("logout")}
->
-  🚪 Logout
+  };
+
+  return (
+    <div className="layout">
+
+      {/* Sidebar */}
+      <div className="sidebar">
+
+        <div>
+
+          <div className="logo">
+            <h1>ReceiptHawk</h1>
+            <p>Track • Save • Analyze</p>
+          </div>
+
+          <div className="menu">
+
+            <div
+              className={menuClass("dashboard")}
+              onMouseEnter={() => setHoveredItem("dashboard")}
+              onMouseLeave={() => setHoveredItem("")}
+              onClick={() => navigate("/dashboard")}
+            >
+              🏠 Dashboard
+            </div>
+
+            <div
+              className={menuClass("expenses")}
+              onMouseEnter={() => setHoveredItem("expenses")}
+              onMouseLeave={() => setHoveredItem("")}
+              onClick={() => navigate("/expenses")}
+            >
+              💰 Expenses
+            </div>
+
+            <div
+              className={menuClass("reports")}
+              onMouseEnter={() => setHoveredItem("reports")}
+              onMouseLeave={() => setHoveredItem("")}
+              onClick={() => navigate("/reports")}
+            >
+              📊 Reports
+            </div>
+
+            <div
+              className={menuClass("profile")}
+              onMouseEnter={() => setHoveredItem("profile")}
+              onMouseLeave={() => setHoveredItem("")}
+              onClick={() => navigate("/profile")}
+            >
+              👤 Profile
+            </div>
+
+            <div
+              className={menuClass("upload")}
+              onMouseEnter={() => setHoveredItem("upload")}
+              onMouseLeave={() => setHoveredItem("")}
+              onClick={() => navigate("/upload")}
+            >
+              📤 Upload Receipt
+            </div>
+
+            <div
+              className={menuClass("settings")}
+              onMouseEnter={() => setHoveredItem("settings")}
+              onMouseLeave={() => setHoveredItem("")}
+              onClick={() => navigate("/settings")}
+            >
+              ⚙ Settings
+            </div>
+
+          </div>
+
+        </div>
+
+        <div className="sidebar-footer">
+
+  <div className="user-info">
+
+    <div className="user-avatar">
+      👤
+    </div>
+
+    <div>
+
+      <h4>
+        {JSON.parse(localStorage.getItem("user"))?.fullName || "User"}
+      </h4>
+
+      <p>ReceiptHawk User</p>
+
+    </div>
+
+  </div>
+
+  <button
+    className="logout-btn"
+    onClick={logout}
+  >
+    🚪 Logout
+  </button>
+
 </div>
+
+      </div>
+
       {/* Main Content */}
-      <div
-        style={{
-          flex: 1,
-          backgroundColor: "#f8fafc",
-        }}
-      >
+      <div className="main-content">
         {children}
       </div>
+
     </div>
   );
 }

@@ -117,26 +117,24 @@ const handleDateFilter = async (date) => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="text-primary">Expense List</h2>
 
-        <div className="d-flex gap-2">
-
-
+<div className="d-flex gap-2">
 
   <button
     className="btn btn-outline-danger"
     onClick={handleExportPdf}
   >
-    <i className="bi bi-file-earmark-pdf"></i> PDF
+    📄 PDF
   </button>
 
   <button
     className="btn btn-outline-success"
     onClick={handleExportExcel}
   >
-    <i className="bi bi-file-earmark-excel"></i> Excel
+    📊 Excel
   </button>
 
   <button
-    className="btn btn-primary"
+    className="btn app-btn rounded-pill px-4"
     onClick={() => navigate("/expenses/add")}
   >
     ➕ Add Expense
@@ -144,7 +142,6 @@ const handleDateFilter = async (date) => {
 
 </div>
 </div>
-      
 
       {/* Summary Cards */}
       <div className="row mb-4">
