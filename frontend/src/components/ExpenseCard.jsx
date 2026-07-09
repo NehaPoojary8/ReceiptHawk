@@ -4,7 +4,7 @@ function ExpenseCard({ expense, onDelete }) {
   const navigate = useNavigate();
 
   return (
-    <div className="card shadow-sm mb-3 border-0 rounded-4">
+     <div className="card shadow-sm border-0 rounded-4 mb-3">
       <div className="card-body d-flex justify-content-between align-items-center">
 
         <div>

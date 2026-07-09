@@ -112,33 +112,22 @@ const handleDateFilter = async (date) => {
   console.log("Expenses State:", expenses);
 
   return (
-    <div className="container mt-5">
+  <div className="container-fluid px-4 py-4">
 
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="text-primary">Expense List</h2>
 
         <div className="d-flex gap-2">
-
-  <button
-    className="btn btn-danger"
-    onClick={handleExportPdf}
-  >
-    📄 PDF
-  </button>
-
-  <button
-    className="btn btn-success"
-    onClick={handleExportExcel}
-  >
-    📊 Excel
-  </button>
-
-  <button
-    className="btn btn-primary rounded-pill px-4"
-    onClick={() => navigate("/expenses/add")}
-  >
-    ➕ Add Expense
-  </button>
+<button className="btn btn-outline-danger">
+  <i className="bi bi-file-earmark-pdf"></i> PDF
+</button>
+  
+<button className="btn btn-outline-success">
+  <i className="bi bi-file-earmark-excel"></i> Excel
+</button>
+  <button className="btn btn-primary">
+  ➕ Add Expense
+</button>
 
 </div>
       </div>
