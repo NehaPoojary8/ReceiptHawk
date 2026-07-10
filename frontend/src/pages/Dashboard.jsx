@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 import { useEffect, useState } from "react";
-=======
 import "./Dashboard.css";
->>>>>>> c95f81da7db206e8faaf799ad1d5ae0f5270aa4a
 import SummaryCard from "../components/SummaryCard";
 import ExpenseChart from "../components/ExpenseChart";
 import BudgetAlert from "../components/BudgetAlert";
@@ -12,7 +9,6 @@ import RecentTransactions from "../components/RecentTransactions";
 import { getAllExpenses } from "../services/expenseService";
 
 function Dashboard() {
-<<<<<<< HEADCD...
   const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
@@ -35,7 +31,6 @@ function Dashboard() {
   );
 
   const totalBudget = 20000;
-
   const remainingBudget = totalBudget - totalExpense;
 
   const averageExpense =
@@ -58,7 +53,7 @@ function Dashboard() {
   const chartData = Object.keys(categoryTotals).map(
     (category) => ({
       name: category,
-      value: categoryTotals[category]
+      value: categoryTotals[category],
     })
   );
 
@@ -72,66 +67,22 @@ function Dashboard() {
 
   // Recent Transactions
   const recentTransactions = [...expenses]
-    .sort(
-      (a, b) =>
-        new Date(b.date) - new Date(a.date)
-    )
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 5);
 
   return (
-    <div
-      style={{
-        padding: "40px",
-        backgroundColor: "#f8fafc",
-        minHeight: "100vh"
-      }}
-    >
-      {/* Heading */}
-      <div
-        style={{
-          textAlign: "center",
-          marginBottom: "40px"
-        }}
-      >
-        <h1
-          style={{
-            fontSize: "58px",
-            fontWeight: "700",
-            margin: 0
-          }}
-        >
-          Dashboard Overview
-        </h1>
-=======
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  return (
     <div className="dashboard-container">
->>>>>>> c95f81da7db206e8faaf799ad1d5ae0f5270aa4a
 
       {/* Header */}
       <div className="dashboard-header">
-        <h1 style={{ color: "blue" }}>Welcome to Your Dashboard</h1>
+        <h1 style={{ color: "blue" }}>
+          Welcome to Your Dashboard
+        </h1>
         <p>Here's your financial summary.</p>
       </div>
-<div className="summary-grid">
-  <SummaryCard title="Total Expense" amount="₹15,000" />
-  <SummaryCard title="Total Budget" amount="₹20,000" />
-  <SummaryCard title="Remaining Budget" amount="₹5,000" />
-</div>
-<div className="dashboard-grid">
 
-<<<<<<< HEAD
       {/* Summary Cards */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "25px",
-          marginBottom: "40px",
-          flexWrap: "wrap"
-        }}
-      >
+      <div className="summary-grid">
         <SummaryCard
           title="Total Expense"
           amount={`₹${totalExpense}`}
@@ -153,40 +104,28 @@ function Dashboard() {
         />
       </div>
 
-      {/* Expense Chart */}
-      <div
-        style={{
-          width: "90%",
-          margin: "auto",
-          backgroundColor: "white",
-          borderRadius: "20px",
-          padding: "30px",
-          boxShadow:
-            "0 12px 32px rgba(0,0,0,0.08)",
-          marginBottom: "35px"
-        }}
-      >
-        <h2
-          style={{
-            textAlign: "center",
-            marginBottom: "25px"
-          }}
-        >
-          Expense Distribution
-        </h2>
+      {/* Charts */}
+      <div className="dashboard-grid">
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            transform: "scale(1.25)"
-          }}
-        >
-          <ExpenseChart data={chartData} />
+        <div className="dashboard-card">
+          <h2>Expense Distribution</h2>
+
+          <div className="chart-wrapper">
+            <ExpenseChart data={chartData} />
+          </div>
         </div>
+
+        <div className="dashboard-card">
+          <h2>Budget Status</h2>
+
+          <div className="chart-wrapper">
+            <BudgetAlert />
+          </div>
+        </div>
+
       </div>
 
-      {/* Analytics Section */}
+      {/* Analytics */}
       <div
         style={{
           width: "90%",
@@ -194,7 +133,6 @@ function Dashboard() {
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: "25px",
-          alignItems: "stretch"
         }}
       >
         <HighestCategoryCard
@@ -209,56 +147,13 @@ function Dashboard() {
       <div
         style={{
           width: "90%",
-          margin: "35px auto"
+          margin: "35px auto",
         }}
       >
         <RecentTransactions
           transactions={recentTransactions}
         />
       </div>
-
-      {/* Budget Alert */}
-      <div
-        style={{
-          width: "90%",
-          margin: "auto",
-          backgroundColor: "white",
-          borderRadius: "20px",
-          padding: "30px",
-          boxShadow:
-            "0 12px 32px rgba(0,0,0,0.08)"
-        }}
-      >
-        <h2
-          style={{
-            textAlign: "center",
-            marginBottom: "25px"
-          }}
-        >
-          Budget Status
-        </h2>
-=======
-  <div className="dashboard-card">
-    <h2>Expense Distribution</h2>
-
-    <div className="chart-wrapper">
-      <ExpenseChart />
-    </div>
-  </div>
-
-  <div className="dashboard-card">
-    <h2>Budget Status</h2>
-
-    <div className="chart-wrapper">
-      <BudgetAlert />
-    </div>
-  </div>
-
-</div>
-      
-
-      
->>>>>>> c95f81da7db206e8faaf799ad1d5ae0f5270aa4a
 
     </div>
   );
