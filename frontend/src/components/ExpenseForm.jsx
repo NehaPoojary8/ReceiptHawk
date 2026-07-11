@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addExpense, updateExpense } from "../services/expenseService";
 
-function ExpenseForm({ expenseData, isEdit = false }) {
+function ExpenseForm({
+  expenseData,
+  isEdit = false,
+  scannedExpense = null,
+}) {
 
   const navigate = useNavigate();
 
@@ -16,12 +20,14 @@ function ExpenseForm({ expenseData, isEdit = false }) {
     userId: 1,
   });
 
-  useEffect(() => {
-    if (isEdit && expenseData) {
-      setExpense(expenseData);
-    }
-  }, [expenseData, isEdit]);
-
+ useEffect(() => {
+  if (scannedExpense) {
+    setExpense((prev) => ({
+      ...prev,
+      ...scannedExpense,
+    }));
+  }
+}, [scannedExpense]);
   const handleChange = (e) => {
     setExpense({
       ...expense,
