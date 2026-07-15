@@ -9,7 +9,7 @@ export const getAllExpenses = () => {
 
 // Get one expense by ID
 export const getExpenseById = (id) => {
-  return axios.get(`${API_URL}/${id}`);
+  return axios.get(`${API_URL}/id/${id}`);
 };
 
 // Add expense
@@ -25,4 +25,21 @@ export const updateExpense = (id, expense) => {
 // Delete expense
 export const deleteExpense = (id) => {
   return axios.delete(`${API_URL}/${id}`);
+};
+// Export PDF
+export const exportPdf = () => {
+  return axios.get(`${API_URL}/export/pdf`, {
+    responseType: "blob",
+  });
+};
+
+// Export Excel
+export const exportExcel = () => {
+  return axios.get(`${API_URL}/export/excel`, {
+    responseType: "blob",
+  });
+};
+// Filter by Date
+export const filterByDate = (date) => {
+  return axios.get(`${API_URL}/date?date=${date}`);
 };
