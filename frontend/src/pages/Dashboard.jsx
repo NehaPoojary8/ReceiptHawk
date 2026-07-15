@@ -72,7 +72,6 @@ function Dashboard() {
 
   return (
     <div className="dashboard-container">
-
       {/* Header */}
       <div className="dashboard-header">
         <h1 style={{ color: "blue" }}>
@@ -104,9 +103,18 @@ function Dashboard() {
         />
       </div>
 
-      {/* Charts */}
-      <div className="dashboard-grid">
-
+      {/* Analytics Section */}
+      <div
+        style={{
+          width: "90%",
+          margin: "35px auto",
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "25px",
+          alignItems: "stretch",
+        }}
+      >
+        {/* Expense Distribution */}
         <div className="dashboard-card">
           <h2>Expense Distribution</h2>
 
@@ -115,44 +123,8 @@ function Dashboard() {
           </div>
         </div>
 
-        <div className="dashboard-card">
-          <h2>Budget Status</h2>
-
-          <div className="chart-wrapper">
-            <BudgetAlert />
-          </div>
-        </div>
-
-      </div>
-
-      {/* Analytics */}
-      <div
-        style={{
-          width: "90%",
-          margin: "35px auto",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "25px",
-        }}
-      >
-        <HighestCategoryCard
-          category={highestCategory[0]}
-          amount={highestCategory[1]}
-        />
-
+        {/* Monthly Comparison */}
         <MonthComparison />
-      </div>
-
-      {/* Recent Transactions */}
-      <div
-        style={{
-          width: "90%",
-          margin: "35px auto",
-        }}
-      >
-        <RecentTransactions
-          transactions={recentTransactions}
-        />
       </div>
 
     </div>
