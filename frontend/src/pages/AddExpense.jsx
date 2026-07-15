@@ -11,7 +11,6 @@ function AddExpense() {
         </h2>
 
         <ExpenseForm />
-
       </div>
     </div>
   );
