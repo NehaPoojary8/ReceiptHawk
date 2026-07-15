@@ -1,31 +1,115 @@
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 function UploadReceipt() {
+
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [showResult, setShowResult] = useState(false);
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-
-    if (file) {
-      setSelectedFile(file);
-      setShowResult(false);
-
-      if (file.type.startsWith("image/")) {
-        const imageUrl = URL.createObjectURL(file);
-        setPreviewUrl(imageUrl);
-      } else {
-        setPreviewUrl(null);
-      }
+  const [loading, setLoading] = useState(false);
+  const [dragActive, setDragActive] = useState(false);
+ const [ocrText, setOcrText] = useState("");
+ useEffect(() => {
+  return () => {
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
     }
   };
+}, [previewUrl]);
+  const handleFile = (file) => {
 
-  const handleUpload = () => {
-    setShowResult(true);
+    if (!file) return;
+
+    // Image validation
+    if (!file.type.startsWith("image/")) {
+      alert("Please upload only JPG, JPEG or PNG images.");
+      return;
+    }
+
+    // Max 5MB
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Image size should be less than 5 MB.");
+      return;
+    }
+
+    setSelectedFile(file);
+    setShowResult(false);
+
+    const imageUrl = URL.createObjectURL(file);
+    setPreviewUrl(imageUrl);
   };
 
-  return (
+  const handleFileChange = (event) => {
+    handleFile(event.target.files[0]);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setDragActive(true);
+  };
+
+  const handleDragLeave = () => {
+    setDragActive(false);
+  };
+
+  const handleDrop = (e) => {
+
+    e.preventDefault();
+
+    setDragActive(false);
+
+    if (e.dataTransfer.files.length > 0) {
+      handleFile(e.dataTransfer.files[0]);
+    }
+
+  };
+
+  const handleUpload = async () => {
+
+    if (!selectedFile) return;
+
+    try{
+
+        setLoading(true);
+
+        const formData = new FormData();
+
+        formData.append("image", selectedFile);
+
+        const response = await axios.post(
+
+            "http://localhost:8083/receipt/scan",
+
+            formData,
+
+            {
+                headers:{
+                    "Content-Type":"multipart/form-data"
+                }
+            }
+
+        );
+
+        console.log(response.data);
+        setOcrText(response.data.text);
+        setLoading(false);
+
+        setShowResult(true);
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        setLoading(false);
+
+        alert("OCR Failed");
+
+    }
+
+};
+    return (
     <div
       style={{
         padding: "40px",
@@ -34,7 +118,9 @@ function UploadReceipt() {
       }}
     >
       {/* Heading */}
+
       <div style={{ marginBottom: "40px" }}>
+
         <h1
           style={{
             marginBottom: "14px",
@@ -43,25 +129,31 @@ function UploadReceipt() {
             lineHeight: "1.1"
           }}
         >
-          Upload Receipt
+          📄 Upload Receipt
         </h1>
 
         <p
           style={{
             color: "#64748b",
-            fontSize: "18px",
-            fontWeight: "500",
-            lineHeight: "1.5"
+            fontSize: "18px"
           }}
         >
-          Upload receipts and extract expense data using AI-powered OCR
+          Upload receipts and extract expense data using AI-powered OCR.
         </p>
+
       </div>
 
       {/* Upload Box */}
+
       <div
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
         style={{
-          border: "3px dashed #94a3b8",
+          border: dragActive
+            ? "3px dashed #2563eb"
+            : "3px dashed #94a3b8",
+
           borderRadius: "24px",
           minHeight: "500px",
           width: "85%",
@@ -70,93 +162,137 @@ function UploadReceipt() {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "white",
+          backgroundColor: dragActive
+            ? "#eff6ff"
+            : "white",
+
           boxShadow: "0 12px 32px rgba(0,0,0,0.08)",
-          padding: "40px"
+          padding: "40px",
+          transition: "0.3s"
         }}
       >
-        <h2 style={{ fontSize: "30px", marginBottom: "12px" }}>
+
+        <h2 style={{ fontSize: "30px" }}>
           📤 Drag & Drop Receipt Here
         </h2>
 
-        <p style={{ color: "#64748b", fontSize: "18px" }}>or</p>
+        <p
+          style={{
+            color: "#64748b",
+            marginTop: "10px",
+            marginBottom: "15px"
+          }}
+        >
+          or
+        </p>
 
         <input
           id="fileUpload"
           type="file"
-          accept=".jpg,.jpeg,.png,.pdf"
-          onChange={handleFileChange}
+          accept="image/*"
           style={{ display: "none" }}
+          onChange={handleFileChange}
         />
 
         <label
           htmlFor="fileUpload"
           style={{
             padding: "16px 32px",
-            borderRadius: "14px",
-            backgroundColor: "#6366f1",
+            backgroundColor: "#4f46e5",
             color: "white",
+            borderRadius: "12px",
             cursor: "pointer",
-            fontSize: "18px",
-            marginTop: "15px",
-            fontWeight: "600"
+            fontWeight: "bold"
           }}
         >
-          Choose File
+          Choose Image
         </label>
 
         {selectedFile && (
-          <p
-            style={{
-              marginTop: "25px",
-              color: "green",
-              fontWeight: "bold",
-              fontSize: "18px"
-            }}
-          >
-            Selected File: {selectedFile.name}
-          </p>
+
+          <>
+            <p
+              style={{
+                marginTop: "25px",
+                color: "green",
+                fontWeight: "bold"
+              }}
+            >
+              📁 {selectedFile.name}
+            </p>
+
+            <p
+              style={{
+                color: "#64748b"
+              }}
+            >
+              {(selectedFile.size / 1024).toFixed(2)} KB
+            </p>
+
+          </>
+
         )}
 
         {previewUrl && (
-          <div style={{ marginTop: "25px", textAlign: "center" }}>
-            <h3 style={{ marginBottom: "15px" }}>Receipt Preview</h3>
+
+          <div
+            style={{
+              marginTop: "25px",
+              textAlign: "center"
+            }}
+          >
+
+            <h3>Receipt Preview</h3>
+
             <img
               src={previewUrl}
-              alt="Receipt Preview"
+              alt="Preview"
               style={{
                 width: "420px",
                 maxHeight: "500px",
                 objectFit: "contain",
-                borderRadius: "16px",
+                borderRadius: "15px",
                 boxShadow: "0 8px 24px rgba(0,0,0,0.2)"
               }}
             />
+
           </div>
+
         )}
 
-        {selectedFile && (
-          <button
-            onClick={handleUpload}
-            style={{
-              marginTop: "30px",
-              padding: "16px 34px",
-              border: "none",
-              borderRadius: "14px",
-              backgroundColor: "#16a34a",
-              color: "white",
-              fontSize: "18px",
-              cursor: "pointer",
-              fontWeight: "bold"
-            }}
-          >
-            Upload Receipt
-          </button>
-        )}
+        <button
+          disabled={!selectedFile || loading}
+          onClick={handleUpload}
+          style={{
+            marginTop: "30px",
+            padding: "16px 36px",
+            backgroundColor:
+              !selectedFile
+                ? "#9ca3af"
+                : "#16a34a",
+
+            color: "white",
+            border: "none",
+            borderRadius: "12px",
+            cursor:
+              !selectedFile
+                ? "not-allowed"
+                : "pointer",
+
+            fontSize: "18px",
+            fontWeight: "bold"
+          }}
+        >
+          {loading
+            ? "🔄 Processing..."
+            : "Upload Receipt"}
+        </button>
+
       </div>
+            {/* OCR Result */}
 
-      {/* OCR Result */}
       {showResult && (
+
         <div
           style={{
             marginTop: "40px",
@@ -169,27 +305,64 @@ function UploadReceipt() {
             marginRight: "auto"
           }}
         >
-          <h2 style={{ color: "green", marginBottom: "25px" }}>
-            ✅ Receipt Processed Successfully
+
+          <h2
+            style={{
+              color: "#16a34a",
+              marginBottom: "25px"
+            }}
+          >
+           ✅ OCR Text Extracted Successfully
           </h2>
 
           <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "20px",
-              fontSize: "18px"
-            }}
-          >
-            <p><strong>Merchant:</strong> DMart</p>
-            <p><strong>Date:</strong> 02-07-2026</p>
-            <p><strong>Amount:</strong> ₹850</p>
-            <p><strong>Category:</strong> Grocery</p>
+  style={{
+    backgroundColor: "#f8fafc",
+    padding: "20px",
+    borderRadius: "12px",
+    border: "1px solid #e2e8f0"
+  }}
+>
+
+    {ocrText}
+
+            <div
+  style={{
+    whiteSpace: "pre-wrap",
+    backgroundColor: "#f8fafc",
+    padding: "20px",
+    borderRadius: "12px",
+    border: "1px solid #d1d5db",
+    fontFamily: "monospace",
+    fontSize: "16px",
+    lineHeight: "1.8",
+    color: "#1f2937"
+  }}
+>
+  {ocrText}
+</div>
+
           </div>
+
+          <hr style={{ margin: "25px 0" }} />
+
+         <p
+  style={{
+    color: "#64748b",
+    textAlign: "center"
+  }}
+>
+  Review the extracted text before continuing.
+</p>
+
         </div>
+
       )}
+
     </div>
+
   );
+
 }
 
 export default UploadReceipt;
