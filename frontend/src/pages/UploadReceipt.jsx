@@ -1,16 +1,19 @@
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { parseReceipt } from "../utils/receiptParser";
 
 function UploadReceipt() {
+  const navigate = useNavigate();
+
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
-  const [showResult, setShowResult] = useState(false);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
     if (file) {
       setSelectedFile(file);
-      setShowResult(false);
 
       if (file.type.startsWith("image/")) {
         const imageUrl = URL.createObjectURL(file);
@@ -21,8 +24,39 @@ function UploadReceipt() {
     }
   };
 
-  const handleUpload = () => {
-    setShowResult(true);
+  const handleUpload = async () => {
+    if (!selectedFile) {
+      alert("Please select a file first.");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("image", selectedFile);
+
+      const response = await axios.post(
+        "http://localhost:8083/receipt/scan",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      const ocrText = response.data.text;
+
+      const parsedExpense = parseReceipt(ocrText);
+
+      navigate("/expenses/add", {
+        state: {
+          scannedExpense: parsedExpense,
+        },
+      });
+    } catch (error) {
+      console.error("OCR Error:", error);
+      alert("Failed to process receipt.");
+    }
   };
 
   return (
@@ -30,7 +64,7 @@ function UploadReceipt() {
       style={{
         padding: "40px",
         backgroundColor: "#f8fafc",
-        minHeight: "100vh"
+        minHeight: "100vh",
       }}
     >
       {/* Heading */}
@@ -40,7 +74,7 @@ function UploadReceipt() {
             marginBottom: "14px",
             fontSize: "58px",
             fontWeight: "700",
-            lineHeight: "1.1"
+            lineHeight: "1.1",
           }}
         >
           Upload Receipt
@@ -51,7 +85,7 @@ function UploadReceipt() {
             color: "#64748b",
             fontSize: "18px",
             fontWeight: "500",
-            lineHeight: "1.5"
+            lineHeight: "1.5",
           }}
         >
           Upload receipts and extract expense data using AI-powered OCR
@@ -72,14 +106,16 @@ function UploadReceipt() {
           alignItems: "center",
           backgroundColor: "white",
           boxShadow: "0 12px 32px rgba(0,0,0,0.08)",
-          padding: "40px"
+          padding: "40px",
         }}
       >
         <h2 style={{ fontSize: "30px", marginBottom: "12px" }}>
           📤 Drag & Drop Receipt Here
         </h2>
 
-        <p style={{ color: "#64748b", fontSize: "18px" }}>or</p>
+        <p style={{ color: "#64748b", fontSize: "18px" }}>
+          or
+        </p>
 
         <input
           id="fileUpload"
@@ -99,7 +135,7 @@ function UploadReceipt() {
             cursor: "pointer",
             fontSize: "18px",
             marginTop: "15px",
-            fontWeight: "600"
+            fontWeight: "600",
           }}
         >
           Choose File
@@ -111,7 +147,7 @@ function UploadReceipt() {
               marginTop: "25px",
               color: "green",
               fontWeight: "bold",
-              fontSize: "18px"
+              fontSize: "18px",
             }}
           >
             Selected File: {selectedFile.name}
@@ -119,8 +155,16 @@ function UploadReceipt() {
         )}
 
         {previewUrl && (
-          <div style={{ marginTop: "25px", textAlign: "center" }}>
-            <h3 style={{ marginBottom: "15px" }}>Receipt Preview</h3>
+          <div
+            style={{
+              marginTop: "25px",
+              textAlign: "center",
+            }}
+          >
+            <h3 style={{ marginBottom: "15px" }}>
+              Receipt Preview
+            </h3>
+
             <img
               src={previewUrl}
               alt="Receipt Preview"
@@ -129,7 +173,8 @@ function UploadReceipt() {
                 maxHeight: "500px",
                 objectFit: "contain",
                 borderRadius: "16px",
-                boxShadow: "0 8px 24px rgba(0,0,0,0.2)"
+                boxShadow:
+                  "0 8px 24px rgba(0,0,0,0.2)",
               }}
             />
           </div>
@@ -147,47 +192,13 @@ function UploadReceipt() {
               color: "white",
               fontSize: "18px",
               cursor: "pointer",
-              fontWeight: "bold"
+              fontWeight: "bold",
             }}
           >
             Upload Receipt
           </button>
         )}
       </div>
-
-      {/* OCR Result */}
-      {showResult && (
-        <div
-          style={{
-            marginTop: "40px",
-            padding: "35px",
-            backgroundColor: "white",
-            borderRadius: "24px",
-            boxShadow: "0 12px 32px rgba(0,0,0,0.08)",
-            width: "85%",
-            marginLeft: "auto",
-            marginRight: "auto"
-          }}
-        >
-          <h2 style={{ color: "green", marginBottom: "25px" }}>
-            ✅ Receipt Processed Successfully
-          </h2>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "20px",
-              fontSize: "18px"
-            }}
-          >
-            <p><strong>Merchant:</strong> DMart</p>
-            <p><strong>Date:</strong> 02-07-2026</p>
-            <p><strong>Amount:</strong> ₹850</p>
-            <p><strong>Category:</strong> Grocery</p>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
