@@ -27,7 +27,9 @@ if (originalName != null && originalName.contains(".")) {
 }
 
 File tempFile = File.createTempFile("receipt", extension);
-
+image.transferTo(tempFile); 
+System.out.println("Temp file: " + tempFile.getAbsolutePath());
+System.out.println("Size: " + tempFile.length());
             // Configure Tesseract
             ITesseract tesseract = new Tesseract();
 
